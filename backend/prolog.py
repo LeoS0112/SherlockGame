@@ -12,4 +12,3 @@ prolog.assertz("defeats(X, Y) :- holds(X, gun), holds(Y, sword)")
 
 query_result = list(prolog.query("defeats(X, Y)"))
 print(query_result)
-
