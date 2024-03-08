@@ -26,11 +26,8 @@ def generate_response_gpt(prompt, key):
 if __name__ == "__main__":
     
     file = open("backend/secret.txt", "r")
-
     key = file.read()
-
     file.close()
 
     prompt = "What is the meaning of life?"
-
     print(generate_response_gpt(prompt, key))
