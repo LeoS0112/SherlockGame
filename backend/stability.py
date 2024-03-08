@@ -7,8 +7,6 @@ from PIL import Image
 from stability_sdk import client
 import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 
-from rembg import remove
-
 # Need to usee stability for
     # Creating tile maps for rooms
     # Character designs
@@ -174,7 +172,6 @@ def get_image_tile(path, content, out):
         for artifact in resp.artifacts:
             if artifact.type == generation.ARTIFACT_IMAGE:
                 img = Image.open(io.BytesIO(artifact.binary))
-                img.show()
                 img.save(out)
                 # remove_background("out.png")
     return out
@@ -196,4 +193,4 @@ if __name__ == "__main__":
 
     print(img)
 
-    stability_use_image(img,, out="out6.png" )
+    stability_use_image(img, out="out6.png" )

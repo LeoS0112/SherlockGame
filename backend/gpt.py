@@ -1,14 +1,16 @@
 from openai import OpenAI
 
 
-def generate_response_gpt(prompt, key):
+def generate_response_gpt(prompt, key=None):
 
+    if key is None:
+        file = open("secret.txt", "r")
+        key = file.read()
+        file.close()
 
     client = OpenAI(api_key=key)
 
     context = ""
-
-
 
     stream = client.chat.completions.create(
         model="gpt-4",
@@ -19,13 +21,12 @@ def generate_response_gpt(prompt, key):
     for chunk in stream:
         if chunk.choices[0].delta.content is not None:
             response += chunk.choices[0].delta.content
-            
+
     return response
 
 
 if __name__ == "__main__":
-    
-    file = open("backend/secret.txt", "r")
+    file = open("secret.txt", "r")
     key = file.read()
     file.close()
 
