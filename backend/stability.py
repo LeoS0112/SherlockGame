@@ -64,7 +64,7 @@ def stability_example(text: str = "A picture of a cat"):
 
 
 
-def stability_use(text):
+def stability_use(text, out):
 
     stability_api = client.StabilityInference(
         key="sk-NHyorRj8N5c2xvbOeLdsXHuYO7RWoG7oXufqhmX2g00o7pB6",
@@ -73,7 +73,7 @@ def stability_use(text):
     
     answers = stability_api.generate(
         prompt = [generation.Prompt(text=text, parameters=generation.PromptParameters(weight=1)),
-                  generation.Prompt(text="blurry, bad, background, realistic", parameters=generation.PromptParameters(weight=-1))
+                  # generation.Prompt(text="blurry, bad, background, realistic", parameters=generation.PromptParameters(weight=-1))
                   ],
 
         steps = 40,
@@ -90,9 +90,9 @@ def stability_use(text):
             if artifact.type == generation.ARTIFACT_IMAGE:
                 img = Image.open(io.BytesIO(artifact.binary))
                 img.show()
-                img.save("out.png")
-                remove_background("out.png")
+                img.save(out)
 
+    return out
 
 def remove_background(image_path):
     # Load the image
@@ -107,7 +107,54 @@ def remove_background(image_path):
 
     return "out.png"
 
+def stability_use_image(path, text, out):
+
+    stability_api = client.StabilityInference(
+        key="sk-NHyorRj8N5c2xvbOeLdsXHuYO7RWoG7oXufqhmX2g00o7pB6",
+        verbose=True,
+        engine="stable-diffusion-xl-1024-v1-0",)
+    
+    img = Image.open(path)
+    
+    answers = stability_api.generate(
+        prompt = [generation.Prompt(text=text, parameters=generation.PromptParameters(weight=0.7)),
+                  generation.Prompt(text="blurry, bad, realistic", parameters=generation.PromptParameters(weight=-1))
+                  ],
+
+        init_image = img,
+        steps = 40,
+        cfg_scale = 5,
+        samples = 1,
+        width = 1024,
+        height = 1024,
+    )
+
+    # Print out what seed has been used
+
+    for resp in answers:
+        for artifact in resp.artifacts:
+            if artifact.type == generation.ARTIFACT_IMAGE:
+                img = Image.open(io.BytesIO(artifact.binary))
+                img.show()
+                img.save(out)
+                # remove_background("out.png")
+    return out
 
 
 if __name__ == "__main__":
-    stability_use("Generate me a sherlock holmes picture, in pixel art game style. No background.  ")
+
+    # img = stability_use("Generate me a background for a pixel art game in 18th century style. Top down 2D")
+
+    # changed = stability_use_image("out2.png", "Generate me a background for a pixel art game in 18th century style. Top down 2D")
+
+    # changed = stability_use_image("out2.png", "Simplify remove object")
+
+    # raise Exception("This is not the main file")
+
+    # stability_use("Generate me a sherlock holmes picture, in pixel art game style. No background.  ")
+
+    img = stability_use("Generate me a picture of a tile for a pixel art game. Design is 19th century style. 2D top down. 8 bit design and pixelated", "out5.png")
+
+    print(img)
+
+    stability_use_image(img, "Generate me a complimentary picture of a carpet for a pixel art game. Design is 19th century style. 2D top down. More pixelated", out="out6.png" )
