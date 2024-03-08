@@ -7,6 +7,7 @@ from PIL import Image
 from stability_sdk import client
 import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 
+from rembg import remove
 
 # Need to usee stability for
     # Creating tile maps for rooms
@@ -71,32 +72,42 @@ def stability_use(text):
         engine="stable-diffusion-xl-1024-v1-0",)
     
     answers = stability_api.generate(
-        prompt=text,
-        # return_prompt=True,
-        # return_input=True,
-        # return_score=True,
-        # return_artifacts=True,
-        # return_logprobs=True,
-        # return_trace=True,
-        # return_attention=True,
-        seed = 121245125,
-        steps = 30,
+        prompt = [generation.Prompt(text=text, parameters=generation.PromptParameters(weight=1)),
+                  generation.Prompt(text="blurry, bad, background, realistic", parameters=generation.PromptParameters(weight=-1))
+                  ],
+
+        steps = 40,
         cfg_scale = 5,
         samples = 1,
         width = 1024,
         height = 1024,
-        # Sample  = ...
     )
+
+    # Print out what seed has been used
 
     for resp in answers:
         for artifact in resp.artifacts:
             if artifact.type == generation.ARTIFACT_IMAGE:
                 img = Image.open(io.BytesIO(artifact.binary))
                 img.show()
+                img.save("out.png")
+                remove_background("out.png")
 
 
+def remove_background(image_path):
+    # Load the image
+    img = Image.open(image_path)
+
+    # Remove the background
+    img = remove(img)
+
+    # Save the image
+    img.save("out.png")   
+
+
+    return "out.png"
 
 
 
 if __name__ == "__main__":
-    stability_use("Generate me a sherlock holmes picture, in pixel art game style. Make sure it is only him. Blank background.  ")
+    stability_use("Generate me a sherlock holmes picture, in pixel art game style. No background.  ")
