@@ -1,3 +1,4 @@
-class Tile:
+class Tile():
     def __init__(self):
         pass
+
