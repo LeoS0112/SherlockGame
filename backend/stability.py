@@ -7,6 +7,8 @@ from PIL import Image
 from stability_sdk import client
 import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 
+from rembg import remove
+
 # Need to usee stability for
 # Creating tile maps for rooms
 # Character designs
@@ -140,44 +142,6 @@ def stability_use_image(path, text, out):
     return out
 
 
-
-
-def get_image_tile(path, content, out):
-
-    stability_api = client.StabilityInference(
-        key="sk-NHyorRj8N5c2xvbOeLdsXHuYO7RWoG7oXufqhmX2g00o7pB6",
-        verbose=True,
-        engine="stable-diffusion-xl-1024-v1-0",)
-    
-    img = Image.open(path)
-
-    context = "Carpet for a pixel art game. Design is 19th century style. 2D top down. More pixelated"
-
-    
-    answers = stability_api.generate(
-        prompt = [generation.Prompt(text=content+context, parameters=generation.PromptParameters(weight=0.7)),
-                  generation.Prompt(text="blurry, bad, realistic", parameters=generation.PromptParameters(weight=-1))
-                  ],
-
-        init_image = img,
-        steps = 40,
-        cfg_scale = 5,
-        samples = 1,
-        width = 1024,
-        height = 1024,
-    )
-
-    # Print out what seed has been used
-
-    for resp in answers:
-        for artifact in resp.artifacts:
-            if artifact.type == generation.ARTIFACT_IMAGE:
-                img = Image.open(io.BytesIO(artifact.binary))
-                img.save(out)
-                # remove_background("out.png")
-    return out
-
-
 if __name__ == "__main__":
     # img = stability_use("Generate me a background for a pixel art game in 18th century style. Top down 2D")
 
@@ -196,4 +160,8 @@ if __name__ == "__main__":
 
     print(img)
 
-    stability_use_image(img, "Generate me a complimentary picture of a carpet for a pixel art game. Design is 19th century style. 2D top down. More pixelated", out="out6.png" )
+    stability_use_image(
+        img,
+        "Generate me a complimentary picture of a carpet for a pixel art game. Design is 19th century style. 2D top down. More pixelated",
+        out="out6.png",
+    )
