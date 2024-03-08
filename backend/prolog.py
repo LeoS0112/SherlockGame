@@ -1,15 +1,14 @@
 from pyswip import Prolog
 
-prolog = Prolog()
-prolog.assertz("character(sherlock)")
-prolog.assertz("character(watson)")
-prolog.assertz("holds(watson, sword)")
-prolog.assertz("holds(sherlock, gun)")
-prolog.assertz("item(sword)")
-prolog.assertz("item(gun)")
-prolog.assertz("defeats(X, Y) :- holds(X, gun), holds(Y, sword)")
+sherlock_logic = Prolog()
+sherlock_logic.assertz("character(sherlock)")
+sherlock_logic.assertz("character(watson)")
+sherlock_logic.assertz("holds(watson, sword)")
+sherlock_logic.assertz("holds(sherlock, gun)")
+sherlock_logic.assertz("item(sword)")
+sherlock_logic.assertz("item(gun)")
+sherlock_logic.assertz("defeats(X, Y) :- holds(X, gun), holds(Y, sword)")
 
 
-query_result = list(prolog.query("defeats(X, Y)"))
+query_result = list(sherlock_logic.query("defeats(X, Y)"))
 print(query_result)
-
