@@ -43,6 +43,10 @@ class Logic:
         summary = room.summary
         npcs = room.npcs
 
+        # If starts with numbers
+        if name[0] in "1234567890":
+            name = f"room_{name}"
+ 
         self.sherlock_logic.assertz(f"room({name})")
 
     def add_weapon(self, weapon):
