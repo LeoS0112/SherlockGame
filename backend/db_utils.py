@@ -11,8 +11,17 @@ def get_user_response():
     get_response = requests.get(endpoint + "user-dialouge", )
     print(get_response.json())
 
+def add_npc_response(npc_id, level_id, response):
+    input = {"npc_response": response}
+    requests.post(endpoint + "npc-dialouge/", input)
+    # print(get_response.json())
+
+def add_NPC(name : str):
+    input = {'name': name}
+    requests.post(endpoint + "npcs/", input)
+
 def increment_map_id():
-    requests.post(endpoint + "map")
+    requests.post(endpoint + "maps/")
 
 def get_list_of_npcs_on_level(level_id, npcs: list):
     npc_id = 0
@@ -22,11 +31,6 @@ def get_list_of_npcs_on_level(level_id, npcs: list):
         for npc in npcs:
             if all_npc["name"] ==  npc["name"]:
                 requests.post(endpoint + "npcs-in-level/", {"level_ID": str(level_id), "npc_ID": str(all_npc["npc_ID"])})
-            
 
-    # print(requests.get(endpoint + "npcs-in-level", npc["name"] , headers="npc_ID"))
-    # input = {level_id,}
-    # requests.post(endpoint + "npcs-in-level", input)
-
-
-get_list_of_npcs_on_level(1, [{"name": "fred"}, {"name": "a"}])
+add_NPC("John")
+# add_npc_response("Hello my name is jeff how are you image.")
