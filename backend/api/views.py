@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .models import NPC, Map, Conversations, NPCsInLevel, UserGameItem
-from .serializers import NPCSerializer, MapSerializer, ConversationsSerializer, NPCsInLevelSerializer, UserGameItemSerializer
+from .models import NPC, Map, UserDialouge, NPCDialouge, NPCsInLevel, UserGameItem
+from .serializers import NPCSerializer, MapSerializer, UserDialougeSerializer, NPCDialougeSerializer, NPCsInLevelSerializer, UserGameItemSerializer
 
 # NPC CRUD
 class NPCListCreate(generics.ListCreateAPIView):
@@ -34,19 +34,33 @@ class MapRetrieveUpdateDestory(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MapSerializer
     lookup_field = "pk"
 
-# Conversation CRUD
-class ConversationListCreate(generics.ListCreateAPIView):
-    queryset = Conversations.objects.all()
-    serializer_class = ConversationsSerializer
+# UserDialouge CRUD
+class UserDialougeListCreate(generics.ListCreateAPIView):
+    queryset = UserDialouge.objects.all()
+    serializer_class = UserDialouge
 
     def delete(self, request, *args, **kwargs):
-        Conversations.objects.all().delete()
+        UserDialouge.objects.all().delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class UserDialougeRetrieveUpdateDestory(generics.RetrieveUpdateDestroyAPIView):
+    queryset = UserDialouge.objects.all()
+    serializer_class = UserDialouge
+    lookup_field = "pk"
+    
+# NPCDialouge CRUD
+class NPCDialougeListCreate(generics.ListCreateAPIView):
+    queryset = NPCDialouge.objects.all()
+    serializer_class = NPCDialougeSerializer
+
+    def delete(self, request, *args, **kwargs):
+        NPCDialouge.objects.all().delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class ConversationsRetrieveUpdateDestory(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Conversations.objects.all()
-    serializer_class = ConversationsSerializer
+class NPCDialougeRetrieveUpdateDestory(generics.RetrieveUpdateDestroyAPIView):
+    queryset = NPCDialouge.objects.all()
+    serializer_class = NPCDialougeSerializer
     lookup_field = "pk"
 
 # NPCsInLevel CRUD
