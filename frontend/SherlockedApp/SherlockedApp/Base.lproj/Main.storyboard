@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="ipad10_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SherlockedApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hoa-1K-hHc">
+                                <rect key="frame" x="0.0" y="24" width="1180" height="776"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AdJ-Fv-mKx" userLabel="LobbyHolder">
+                                        <rect key="frame" x="0.0" y="0.0" width="295" height="776"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TA8-nK-Nxt" userLabel="LobbyView">
+                                                <rect key="frame" x="0.0" y="240.5" width="295" height="295"/>
+                                                <color key="backgroundColor" systemColor="linkColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="TA8-nK-Nxt" secondAttribute="height" multiplier="1:1" id="I8d-tK-Qsn"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="TA8-nK-Nxt" firstAttribute="centerY" secondItem="AdJ-Fv-mKx" secondAttribute="centerY" id="4Xq-su-6vk"/>
+                                            <constraint firstItem="TA8-nK-Nxt" firstAttribute="leading" secondItem="AdJ-Fv-mKx" secondAttribute="leading" id="K9p-pN-vYT"/>
+                                            <constraint firstItem="TA8-nK-Nxt" firstAttribute="width" secondItem="AdJ-Fv-mKx" secondAttribute="width" id="eVQ-of-a9C"/>
+                                            <constraint firstAttribute="trailing" secondItem="TA8-nK-Nxt" secondAttribute="trailing" id="k5Y-gV-p0b"/>
+                                        </constraints>
+                                    </view>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HkF-0E-EsO" userLabel="OfficeView">
+                                        <rect key="frame" x="295" y="0.0" width="413" height="776"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3gv-Kx-WxL">
+                                                <rect key="frame" x="0.0" y="181.5" width="413" height="413"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="3gv-Kx-WxL" secondAttribute="height" multiplier="1:1" id="At8-Dt-bC8"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="3gv-Kx-WxL" secondAttribute="trailing" id="2Bm-fB-CBE"/>
+                                            <constraint firstItem="3gv-Kx-WxL" firstAttribute="leading" secondItem="HkF-0E-EsO" secondAttribute="leading" id="JET-K9-lv8"/>
+                                            <constraint firstItem="3gv-Kx-WxL" firstAttribute="centerY" secondItem="HkF-0E-EsO" secondAttribute="centerY" id="NJn-3U-DPI"/>
+                                            <constraint firstItem="3gv-Kx-WxL" firstAttribute="width" secondItem="3gv-Kx-WxL" secondAttribute="height" multiplier="1:1" id="kWO-Kb-k7r"/>
+                                        </constraints>
+                                    </view>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d2U-7v-ndT" userLabel="GameView">
+                                        <rect key="frame" x="708" y="0.0" width="472" height="776"/>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="d2U-7v-ndT" firstAttribute="width" secondItem="Hoa-1K-hHc" secondAttribute="width" multiplier="0.4" id="SQy-CM-WL8"/>
+                                    <constraint firstItem="HkF-0E-EsO" firstAttribute="width" secondItem="Hoa-1K-hHc" secondAttribute="width" multiplier="0.35" id="WlQ-nN-xST"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Hoa-1K-hHc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8VJ-Xf-ZOA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Hoa-1K-hHc" secondAttribute="bottom" id="CiD-Wh-spv"/>
+                            <constraint firstItem="Hoa-1K-hHc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="FzJ-2r-GoC"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hoa-1K-hHc" secondAttribute="trailing" id="mrG-KG-4vI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gameMapView" destination="d2U-7v-ndT" id="a2T-0q-gmg"/>
+                        <outlet property="lobbyView" destination="TA8-nK-Nxt" id="N86-3s-QzG"/>
+                        <outlet property="officeView" destination="HkF-0E-EsO" id="gNz-Wk-DRa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75.762711864406782" y="-2.1951219512195124"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
