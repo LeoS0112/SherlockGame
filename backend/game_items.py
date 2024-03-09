@@ -3,10 +3,11 @@ from stability import get_image_tile
 from json import loads
 from prolog import Logic
 from textwrap import dedent
-from models import Room, Character, Item
+from models import Room, Character
 import os
 
 from communication import Communication
+
 
 
 
@@ -76,7 +77,7 @@ def get_next_room(game_desc, goal, global_characters, sherlock_logic, prev_room)
 if __name__ == "__main__":
 
     # Empty the images folder
-    os.system("rm images/*")
+    os.system("rm media/*")
 
     sherlock_logic = Logic()
     global_characters = [ Character("Sherlock", "The detective", "10", sherlock_logic), Character("Watson", "Sherlock's Assistant", "7", sherlock_logic), Character("Moriarty", "The Villain", "0", sherlock_logic)]
@@ -110,6 +111,8 @@ if __name__ == "__main__":
     conversation.useful_question()
 
     for _ in range(10):
+
+
 
         response = input()
         character_names_in_response = gpt_characters(response, global_characters)

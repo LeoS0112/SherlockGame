@@ -7,12 +7,15 @@ start = time.perf_counter()
 import os
 import boto3
 
-client = boto3.client('s3', region_name='eu-north-1')
+client = boto3.client('s3',
+                        aws_access_key_id="AKIA3W6Z2DQZTO6EYSNH",
+                        aws_secret_access_key="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",
+                         region_name='eu-north-1')
 
 end = time.perf_counter()
 print(end - start) 
     
-client = boto3.client('s3', region_name='eu-north-1')
+# client = boto3.client('s3', region_name='eu-north-1')
 
 media_directory = 'backend/media/'
 npcs_directory = 'backend/media/npcs/'
@@ -36,7 +39,7 @@ for folder in os.listdir(media_directory):
             carpet_id += 1
 
         elif folder == "npcs" and img not in list_of_npcs:
-            key = f"{folder}/{npc_id}"
+            key = f"{folder}/{img}"
             list_of_npcs.append(img)
             with open(img_path, 'rb') as img_file:
                 client.upload_fileobj(img_file, 'sherlock-game', key, ExtraArgs={'Metadata': {'id': str(npc_id)}})
