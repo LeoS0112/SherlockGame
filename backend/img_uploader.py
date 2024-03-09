@@ -1,8 +1,8 @@
 import os
 import boto3
-import time
+# import time
 
-start = time.perf_counter()
+# start = time.perf_counter()
 
 import os
 import boto3
