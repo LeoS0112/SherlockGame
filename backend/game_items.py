@@ -1,4 +1,4 @@
-from gpt_utils import get_description, get_npcs, get_first_room_npcs, gpt_characters
+from gpt_utils import get_description, get_npcs, get_first_room_npcs, gpt_characters, gpt_response_mood
 from stability import get_image_tile
 from json import loads
 from prolog import Logic
@@ -120,9 +120,11 @@ if __name__ == "__main__":
 
         response = input()
         character_names_in_response = gpt_characters(response, global_characters)
-
+        politeness_rating = gpt_response_mood(response)
+        print(politeness_rating)
         print(response)
-        question = conversation.converse(response, past_conversations, character.items[0], character_names_in_response)
+
+        question = conversation.converse(response, past_conversations, character.items[0], character_names_in_response, politeness_rating)
 
 
         info = loads(question)
