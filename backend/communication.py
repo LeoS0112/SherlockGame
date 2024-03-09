@@ -56,13 +56,23 @@ class Communication:
         else: 
             print("You lost the fight, Game Over")
 
-    def converse(self, prompt, previous_conversations, goal):
+    def converse(self, prompt, previous_conversations, goal, mentioned_characters):
         
 
         if prompt.upper() == "FIGHT":
             print("You have chosen to fight")
             return self.fight()
 
+    
+            
+        # For frirnd in self.logic.friends:
+        #     if friend in prompt:
+        #         usefullness += 
+        for char in mentioned_characters:
+            if self.logic.is_friends(self.character.name, char) == 0.5:
+                self.character.usefulness += 2
+            elif self.logic.is_friends(self.character.name, char) == 1:
+                self.character.usefulness += 5
         prompt = dedent(f"""\
 
     You are a character in a game. Your name is {self.character.name} and you are {self.character.description}  You are in a room with Sherlock Holmes and Watson. 
@@ -71,9 +81,11 @@ class Communication:
     Here are any previous conversations: {previous_conversations[-300:]}
 
 
+
     The question asked is: {prompt}
     Respond as the character with open dialogue. If they are close to the answer: {goal}, give them a hint towards the clue. If they ask for a hint, give them a signficiant hint. 
     If {prompt} is near to the answer: {goal} then you can give them the item and set get_item to true. This should be lenient and not too strict.
+
                         
 
     Return Format: 

@@ -17,12 +17,16 @@ class Room:
         tile_path = get_image_tile(f"carpet2.png", "", f"images/{self.name}.png")
 
 class Character:
-    def __init__(self, name, description, usefulness, weapon=None, item=None):
+    def __init__(self, name, description, usefulness, sherlock_logic, weapon=None, item=None):
         self.name = pre_parse_names(name)
         self.description = description
         self.usefulness = usefulness
+        self.logic = sherlock_logic
         self.weapon = None
         self.items = None
+        for potential_friend in self.logic.get_all_characters():
+            if randint(0, 1) == 1:
+                self.logic.add_friends(self.name, potential_friend)
         if weapon is not None:
             self.weapon = pre_parse_names(weapon[0])
             self.weapon_strength = weapon[1]

@@ -26,6 +26,8 @@ class Logic:
 
         self.sherlock_logic.assertz("friends(X, Y, 0.5) :- friends(X, A, 1), friends(Y, A, 1)")
 
+        self.sherlock_logic.assertz("character(sherlock)")
+
     def add_character(self, character):
         name = character.name
         description = character.description
@@ -72,37 +74,41 @@ class Logic:
         return len(list(self.sherlock_logic.query(f"defeats(sherlock, {character.name})"))) == 1
 
     def add_friends(self, character1, character2):
-        name1 = character1.name
-        name2 = character2.name
+        name1 = character1
+        name2 = character2
         self.sherlock_logic.retractall("friends(X, Y, 0.5) :- friends(X, A, 1), friends(Y, A, 1)")
         self.sherlock_logic.assertz(f"friends({name1}, {name2}, 1)")
         self.sherlock_logic.assertz(f"friends({name2}, {name1}, 1)")
         self.sherlock_logic.assertz("friends(X, Y, 0.5) :- friends(X, A, 1), friends(Y, A, 1)")
 
     def is_friends(self, character1, character2):
-        qr = list(self.sherlock_logic.query(f"friends({character1.name}, {character2.name}, Z)"))
+        qr = list(self.sherlock_logic.query(f"friends({character1}, {character2}, Z)"))
         if len(qr) == 0:
             return 0
         else:
             return qr[0]['Z']
+        
+    def get_all_characters(self):
+        value =  list(self.sherlock_logic.query("character(X)"))
+        return [val['X'] for val in value]
 # query_result = list(sherlock_logic.query("defeats(X, Y)"))
 # print(query_result)
 
 if __name__ == "__main__":
     sherlock_logic = Logic()
-    sherlock = Character("sherlock", "Sherlock Holmes", 10)
-    watson = Character("watson", "", 10)
-    mycroft = Character("mycroft", "", 6)
-    moriarty = Character("moriarty", "", 0)
-    sherlock_logic.add_character(sherlock)
-    sherlock_logic.add_character(watson)
-    sherlock_logic.add_character(mycroft)
+    # sherlock = Character("sherlock", "Sherlock Holmes", 10)
+    # watson = Character("watson", "", 10)
+    # mycroft = Character("mycroft", "", 6)
+    # moriarty = Character("moriarty", "", 0)
+    # sherlock_logic.add_character(sherlock)
+    # sherlock_logic.add_character(watson)
+    # sherlock_logic.add_character(mycroft)
 
-    sherlock_logic.add_friends(sherlock, watson)
-    sherlock_logic.add_friends(mycroft, watson)
-
-    print(sherlock_logic.is_friends(watson, sherlock))
-    print(sherlock_logic.is_friends(mycroft, sherlock))
-    print(sherlock_logic.is_friends(moriarty, sherlock))
+    # sherlock_logic.add_friends(sherlock, watson)
+    # sherlock_logic.add_friends(mycroft, watson)
+    # print(sherlock_logic.get_all_characters())
+    # print(sherlock_logic.is_friends(watson, sherlock))
+    # print(sherlock_logic.is_friends(mycroft, sherlock))
+    # print(sherlock_logic.is_friends(moriarty, sherlock))
 
 
