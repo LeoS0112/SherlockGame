@@ -30,7 +30,7 @@ def get_npcs(game_desc, current_room_description, previous_characters,   goal="c
         {current_room_description}
     The overall aim of the game: 
         {goal}
-    If relevant, you can include the previous characters with the exact same names, no alternatives
+    If relevant, you can include the previous characters with the exact same names, no alternative names.
         {previous_characters}
     Or output new characters Sherlock will meet in the next room.
     Each person has a weapon. The weapon has a strength which is a number between 1 and 10. 1 being weak and 10 being strong.
