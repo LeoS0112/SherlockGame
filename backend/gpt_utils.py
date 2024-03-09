@@ -4,15 +4,6 @@ from json import loads
 
 from openai import OpenAI
 
-class Character:
-    def __init__(self, name, description, usefulness, weapon=None, item=None):
-        self.name = name
-        self.description = description
-        self.usefulness = usefulness
-        self.weapon = weapon
-        self.item = item
-
-
 def get_description(game_desc, last_room, goal="catch Moriarty"):
     prompt = dedent(f"""\
     
@@ -93,7 +84,7 @@ if __name__ == "__main__":
     # Empty the images folder
     # os.system("rm images/*")
 
-    global_characters = [ Character("Sherlock", "The detective", "10"), Character("Watson", "Sherlock's Assistant", "7"), Character("Moriarty", "The Villain", "0")]
-    character_list = gpt_characters("Sherlock and Watson are in the room with Moriarty and they are discussing the case", global_characters)
-    print(character_list)
+    # global_characters = [ Character("Sherlock", "The detective", "10"), Character("Watson", "Sherlock's Assistant", "7"), Character("Moriarty", "The Villain", "0")]
+    # character_list = gpt_characters("Sherlock and Watson are in the room with Moriarty and they are discussing the case", global_characters)
+    # print(character_list)
 
