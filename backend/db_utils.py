@@ -8,7 +8,7 @@ def add_game_items(item_name : str):
     requests.post(endpoint + "user-game-item", input)
 
 def get_user_response():
-    get_response = requests.get(endpoint + "user-game-item", )
+    get_response = requests.get(endpoint + "user-dialouge", )
     print(get_response.json())
 
 

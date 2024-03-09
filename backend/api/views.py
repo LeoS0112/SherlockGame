@@ -38,7 +38,7 @@ class MapRetrieveUpdateDestory(generics.RetrieveUpdateDestroyAPIView):
 # UserDialouge CRUD
 class UserDialougeListCreate(generics.ListCreateAPIView):
     queryset = UserDialouge.objects.all()
-    serializer_class = UserDialouge
+    serializer_class = UserDialougeSerializer
 
     def delete(self, request, *args, **kwargs):
         UserDialouge.objects.all().delete()
@@ -46,7 +46,7 @@ class UserDialougeListCreate(generics.ListCreateAPIView):
 
 class UserDialougeRetrieveUpdateDestory(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserDialouge.objects.all()
-    serializer_class = UserDialouge
+    serializer_class = UserDialougeSerializer
     lookup_field = "pk"
 
 # NPCDialouge CRUD
