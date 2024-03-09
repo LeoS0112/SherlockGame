@@ -7,6 +7,8 @@ from PIL import Image
 from stability_sdk import client
 import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 
+from rembg import remove
+
 # Need to usee stability for
     # Creating tile maps for rooms
     # Character designs
@@ -60,19 +62,31 @@ def stability_example(text: str = "A picture of a cat"):
         with open(f'./out/txt2img_{image["seed"]}.png', "wb") as f:
             f.write(base64.b64decode(image["base64"]))
 
+def remove_background(img, out_path):
+    # Remove the background
+    img = remove(img)
+
+    # Save the image
+    img.save(out_path)   
 
 
-def stability_use(text, out):
+    return out_path
+
+
+def stability_use(out, content):
 
     stability_api = client.StabilityInference(
         key="sk-NHyorRj8N5c2xvbOeLdsXHuYO7RWoG7oXufqhmX2g00o7pB6",
         verbose=True,
         engine="stable-diffusion-xl-1024-v1-0",)
     
+    context = "Single character who is pixelated, 8 bit inspired with no background"
+    
     answers = stability_api.generate(
-        prompt = [generation.Prompt(text=text, parameters=generation.PromptParameters(weight=1)),
-                  # generation.Prompt(text="blurry, bad, background, realistic", parameters=generation.PromptParameters(weight=-1))
+        prompt = [generation.Prompt(text=context+content, parameters=generation.PromptParameters(weight=1)),
+                  generation.Prompt(text="bad, background, realistic, text, house", parameters=generation.PromptParameters(weight=-1))
                   ],
+    
 
         steps = 40,
         cfg_scale = 5,
@@ -87,23 +101,16 @@ def stability_use(text, out):
         for artifact in resp.artifacts:
             if artifact.type == generation.ARTIFACT_IMAGE:
                 img = Image.open(io.BytesIO(artifact.binary))
-                img.show()
-                img.save(out)
+                # img.show()
+                print(out)
+
+                remove_background(img, out)
+
+                # img.save(out)
 
     return out
 
-def remove_background(image_path):
-    # Load the image
-    img = Image.open(image_path)
 
-    # Remove the background
-    img = remove(img)
-
-    # Save the image
-    img.save("out.png")   
-
-
-    return "out.png"
 
 def stability_use_image(path, text, out):
 
@@ -112,10 +119,14 @@ def stability_use_image(path, text, out):
         verbose=True,
         engine="stable-diffusion-xl-1024-v1-0",)
     
+
+    context = "Pixel art game. Design is 19th century style. 2D top down. More pixelated"
+
+
     img = Image.open(path)
     
     answers = stability_api.generate(
-        prompt = [generation.Prompt(text=text, parameters=generation.PromptParameters(weight=0.7)),
+        prompt = [generation.Prompt(text=context+text, parameters=generation.PromptParameters(weight=1)),
                   generation.Prompt(text="blurry, bad, realistic", parameters=generation.PromptParameters(weight=-1))
                   ],
 
@@ -133,12 +144,11 @@ def stability_use_image(path, text, out):
         for artifact in resp.artifacts:
             if artifact.type == generation.ARTIFACT_IMAGE:
                 img = Image.open(io.BytesIO(artifact.binary))
-                img.show()
-                img.save(out)
+                print(img)
+                img.save("out.png")
+                print(out)
                 # remove_background("out.png")
     return out
-
-
 
 
 def get_image_tile(path, content, out):
@@ -178,6 +188,8 @@ def get_image_tile(path, content, out):
     return out
 
 
+
+
 if __name__ == "__main__":
 
     # img = stability_use("Generate me a background for a pixel art game in 18th century style. Top down 2D")
@@ -190,8 +202,20 @@ if __name__ == "__main__":
 
     # stability_use("Generate me a sherlock holmes picture, in pixel art game style. No background.  ")
 
-    img = stability_use("Generate me a picture of a tile for a pixel art game. Design is 19th century style. 2D top down. 8 bit design and pixelated", "out5.png")
+    # img = stability_use("Generate me a picture of a tile for a pixel art game. Design is 19th century style. 2D top down. 8 bit design and pixelated", "out5.png")
 
-    print(img)
+    image_path  = "images/inspector_lestrade.png"
+    out_path = "cached_characters/inspector_lestrade.png"
 
-    stability_use_image(img, out="out6.png" )
+    # Romve background and save in created_characters
+
+
+    # Load the image
+    img = Image.open(image_path)
+
+    # Remove the background
+    img = remove(img)
+
+    # Save the image
+    img.save(out_path)   
+

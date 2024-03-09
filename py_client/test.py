@@ -1,8 +1,8 @@
 import requests
-from PIL as 
 
-endpoint = "https://sherlock-game.s3.eu-west-2.amazonaws.com/carpets/0"
+endpoint = "http://localhost:8000/api/"
 
-# data = requests.get(endpoint).json()
+get_response = requests.get(endpoint)
 
-print(endpoint)
+print(get_response.json()["message"])
+

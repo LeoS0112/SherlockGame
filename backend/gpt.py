@@ -4,7 +4,7 @@ from openai import OpenAI
 def generate_response_gpt(prompt, key=None):
 
     if key is None:
-        file = open("secret.txt", "r")
+        file = open("backend/secret.txt", "r")
         key = file.read()
         file.close()
 
@@ -24,11 +24,7 @@ def generate_response_gpt(prompt, key=None):
 
     return response
 
-
 if __name__ == "__main__":
-    file = open("secret.txt", "r")
-    key = file.read()
-    file.close()
 
     prompt = "What is the meaning of life?"
-    print(generate_response_gpt(prompt, key))
+    print(generate_response_gpt(("user", prompt)))

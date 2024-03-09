@@ -2,6 +2,16 @@ from gpt import generate_response_gpt
 from textwrap import dedent
 from json import loads
 
+from openai import OpenAI
+
+class Character:
+    def __init__(self, name, description, usefulness, weapon=None, item=None):
+        self.name = name
+        self.description = description
+        self.usefulness = usefulness
+        self.weapon = weapon
+        self.item = item
+
 
 def get_description(game_desc, last_room, goal="catch Moriarty"):
     prompt = dedent(f"""\
@@ -21,6 +31,8 @@ def get_description(game_desc, last_room, goal="catch Moriarty"):
 
 def get_npcs(game_desc, current_room_description, previous_characters,   goal="catch Moriarty"):
 
+    print(previous_characters)
+
     prompt = dedent(f"""\
     
     You are designing a game which is {game_desc}
@@ -28,7 +40,7 @@ def get_npcs(game_desc, current_room_description, previous_characters,   goal="c
         {current_room_description}
     The overall aim of the game: 
         {goal}
-    If relevant, you can include the previous characters:
+    If relevant, you can include the previous characters with the exact same names, no alternative names. For example if watson exists do not create a dr john watson.
         {previous_characters}
     Or output new characters Sherlock will meet in the next room.
     Each person has a weapon. The weapon has a strength which is a number between 1 and 10. 1 being weak and 10 being strong.
@@ -52,11 +64,36 @@ def get_first_room_npcs(game_desc , goal="catch Moriarty"):
         
     Output a character that the Sherlock and Watson will meet in the first room, who will provide them with a new case. Describe the case they provide which is in Canary Wharf
     The format should be: {{ "Name": "Name", "Description": "Description"}}
+    
 """)
     
     new_room_description = generate_response_gpt(prompt)
     print(new_room_description)
     return new_room_description
 
+def gpt_characters(response, global_characters):
+    character_names = [character.name for character in global_characters]
+    prompt = dedent(f"""\
+        Check which of these characters are mentioned in the response: {character_names}
+        Output only a list of character names that are mentioned in the response in the format: [name1, name2, ...].   
 
+        For example, if the response is "Sherlock and Watson are in the room with Moriarty and they are discussing the case", with the characters ["Sherlock", "Watson"],
+        the output should be only: ["Sherlock", "Watson"]      
+        """)
+    
+    character_names = generate_response_gpt(prompt)
+    l = character_names.strip().strip("[]").replace("\"", " ").split(", ")
+    l = [x.strip("'").strip() for x in l]
+    updated_list = [x for x in l if x in character_names]
+    return updated_list
+
+
+if __name__ == "__main__":
+
+    # Empty the images folder
+    # os.system("rm images/*")
+
+    global_characters = [ Character("Sherlock", "The detective", "10"), Character("Watson", "Sherlock's Assistant", "7"), Character("Moriarty", "The Villain", "0")]
+    character_list = gpt_characters("Sherlock and Watson are in the room with Moriarty and they are discussing the case", global_characters)
+    print(character_list)
 

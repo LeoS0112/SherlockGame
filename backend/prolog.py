@@ -24,6 +24,10 @@ class Logic:
         self.sherlock_logic.assertz("sherlock_total(X) :- sherlock_items(L), sum_items_list(L, X)")
         self.sherlock_logic.assertz("completes_game() :- sherlock_total(X), X > 25")
 
+        self.sherlock_logic.assertz("friends(X, Y, 0.5) :- friends(X, A, 1), friends(Y, A, 1)")
+
+        self.sherlock_logic.assertz("character(sherlock)")
+
     def add_character(self, character):
         name = character.name
         description = character.description
@@ -41,11 +45,16 @@ class Logic:
         summary = room.summary
         npcs = room.npcs
 
+        # If starts with numbers
+        if name[0] in "1234567890":
+            name = f"room_{name}"
+ 
         self.sherlock_logic.assertz(f"room({name})")
 
     def add_weapon(self, weapon):
         name = weapon.name
-        self.sherlock_logic.assertz(f"weapon({name}, strength)")
+        strength = weapon.strength
+        self.sherlock_logic.assertz(f"weapon({name}, {strength})")
 
     def add_item(self, item):
         name = item.name
@@ -63,29 +72,42 @@ class Logic:
 
     def sherlock_defeats(self, character):
         return len(list(self.sherlock_logic.query(f"defeats(sherlock, {character.name})"))) == 1
-    
+
+    def add_friends(self, name1, name2):
+
+        self.sherlock_logic.retractall("friends(X, Y, 0.5) :- friends(X, A, 1), friends(Y, A, 1)")
+        self.sherlock_logic.assertz(f"friends({name1}, {name2}, 1)")
+        self.sherlock_logic.assertz(f"friends({name2}, {name1}, 1)")
+        self.sherlock_logic.assertz("friends(X, Y, 0.5) :- friends(X, A, 1), friends(Y, A, 1)")
+
+    def is_friends(self, character1, character2):
+        qr = list(self.sherlock_logic.query(f"friends({character1}, {character2}, Z)"))
+        if len(qr) == 0:
+            return 0
+        else:
+            return qr[0]['Z']
+        
+    def get_all_characters(self):
+        value =  list(self.sherlock_logic.query("character(X)"))
+        return [val['X'] for val in value]
 # query_result = list(sherlock_logic.query("defeats(X, Y)"))
 # print(query_result)
 
 if __name__ == "__main__":
     sherlock_logic = Logic()
-    sherlock_logic.add_character(Character("sherlock", "Sherlock Holmes", 10))
+    # sherlock = Character("sherlock", "Sherlock Holmes", 10)
+    # watson = Character("watson", "", 10)
+    # mycroft = Character("mycroft", "", 6)
+    # moriarty = Character("moriarty", "", 0)
+    # sherlock_logic.add_character(sherlock)
+    # sherlock_logic.add_character(watson)
+    # sherlock_logic.add_character(mycroft)
 
-    # Give Sherlock some items
-    sherlock_logic.new_item(Item("pipe", 10))
-    # sherlock_logic.new_item(Item("magnifying_glass", 5))
-    # sherlock_logic.new_item(Item("notebook", 5))
-    # sherlock_logic.new_item(Item("pen", 5))
-    # sherlock_logic.new_item(Item("hat", 5))
+    # sherlock_logic.add_friends(sherlock, watson)
+    # sherlock_logic.add_friends(mycroft, watson)
+    # print(sherlock_logic.get_all_characters())
+    # print(sherlock_logic.is_friends(watson, sherlock))
+    # print(sherlock_logic.is_friends(mycroft, sherlock))
+    # print(sherlock_logic.is_friends(moriarty, sherlock))
 
-    sherlock_logic.has_item("sherlock", "pipe")
-    # sherlock_logic.has_item("sherlock", "magnifying_glass")
-    # sherlock_logic.has_item("sherlock", "notebook")
-    # sherlock_logic.has_item("sherlock", "pen")
-    # sherlock_logic.has_item("sherlock", "hat")
-    qr = list(sherlock_logic.sherlock_logic.query("has_item(sherlock, X)"))
-
-    query_result = list(sherlock_logic.sherlock_logic.query("sherlock_total(X)"))
-    print(query_result)
-    print(sherlock_logic.completed_game())
 
