@@ -24,9 +24,21 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TA8-nK-Nxt" userLabel="LobbyView">
                                                 <rect key="frame" x="0.0" y="240.5" width="295" height="295"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YJ3-bO-uod" userLabel="DoorView">
+                                                        <rect key="frame" x="280" y="83.5" width="15" height="128"/>
+                                                        <color key="backgroundColor" systemColor="systemBrownColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="15" id="6i4-GW-MxH"/>
+                                                            <constraint firstAttribute="height" constant="128" id="E2N-vW-LFb"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
                                                 <color key="backgroundColor" systemColor="linkColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="TA8-nK-Nxt" secondAttribute="height" multiplier="1:1" id="I8d-tK-Qsn"/>
+                                                    <constraint firstAttribute="trailing" secondItem="YJ3-bO-uod" secondAttribute="trailing" id="dci-Vz-YTd"/>
+                                                    <constraint firstItem="YJ3-bO-uod" firstAttribute="centerY" secondItem="TA8-nK-Nxt" secondAttribute="centerY" id="pLa-Ae-hIj"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -80,6 +92,7 @@
                     </view>
                     <connections>
                         <outlet property="gameMapView" destination="d2U-7v-ndT" id="a2T-0q-gmg"/>
+                        <outlet property="lobbyDoorView" destination="YJ3-bO-uod" id="63n-KG-O9q"/>
                         <outlet property="lobbyView" destination="TA8-nK-Nxt" id="N86-3s-QzG"/>
                         <outlet property="officeView" destination="HkF-0E-EsO" id="gNz-Wk-DRa"/>
                     </connections>
@@ -92,6 +105,9 @@
     <resources>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBrownColor">
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

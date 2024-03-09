@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "824AAAB6-4DA3-401C-ACDB-90D2A39AC35E"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8234EE87-DB8A-4FD2-9E06-11769D4CD0E4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SherlockedApp/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "moveToScene(sceneLocation:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8234EE87-DB8A-4FD2-9E06-11769D4CD0E4 - e2c2c300a1a2c96b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SherlockedApp.ViewController.moveToScene(sceneLocation: SherlockedApp.ViewController.Scene) -&gt; ()"
+                  moduleName = "SherlockedApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alok/iOS/AI%20hackathon%20London/SherlockGame/frontend/SherlockedApp/SherlockedApp/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "536">
+               </Location>
+               <Location
+                  uuid = "8234EE87-DB8A-4FD2-9E06-11769D4CD0E4 - e2c2c300a1a2c863"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SherlockedApp.ViewController.moveToScene(sceneLocation: SherlockedApp.ViewController.Scene) -&gt; ()"
+                  moduleName = "SherlockedApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alok/iOS/AI%20hackathon%20London/SherlockGame/frontend/SherlockedApp/SherlockedApp/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "108">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C9531A99-34CE-46E7-A5CF-5DED143CC063"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SherlockedApp/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "moveImageViewWithinBounds(tapLocation:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
