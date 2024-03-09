@@ -15,7 +15,10 @@ def increment_map_id():
     requests.post(endpoint + "map")
 
 # def get_list_of_npcs_on_level(level_id, npcs: list):
-#     for npc in npcs:
-#         print(requests.get(endpoint + "npcs-in-level", npc.name))
-#         # input = {level_id, npc_id}
-#         # requests.post(endpoint + "npcs-in-level", input)
+#     # for npc in npcs:
+#     print(requests.get(endpoint + "npcs").json())
+#     # print(requests.get(endpoint + "npcs-in-level", npc["name"] , headers="npc_ID"))
+#     input = {level_id,}
+#     requests.post(endpoint + "npcs-in-level", input)
+
+# get_list_of_npcs_on_level(0, [{"name": "fred"}, {"name": "a"}])
