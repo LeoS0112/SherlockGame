@@ -15,8 +15,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Map',
             fields=[
-                ('item_ID', models.AutoField(primary_key=True, serialize=False)),
-                ('item_name', models.CharField(max_length=100)),
+                ('level_ID', models.AutoField(primary_key=True, serialize=False)),
             ],
         ),
         migrations.CreateModel(
