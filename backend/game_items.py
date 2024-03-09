@@ -60,6 +60,11 @@ class Character:
     def __str__(self):
         return self.description
 
+class Item:
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
 def get_first_room(game_desc, goal, global_characters, sherlock_logic):
     
     starting_room_description = ("In 'Sherlock Holmes: Shadows of Intrigue,' embody the detective in Victorian London. Solve "
@@ -107,6 +112,7 @@ if __name__ == "__main__":
     room_two, global_characters = get_next_room(game_desc, global_goal, global_characters, sherlock_logic, room_one)
 
 
+
     print(global_characters[-1].item)
 
     char = global_characters[-1]
@@ -134,3 +140,4 @@ if __name__ == "__main__":
         if info["give_item"]:
             give_item(char, char.item)
             break
+
