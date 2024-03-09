@@ -27,6 +27,7 @@ class Logic:
         self.sherlock_logic.assertz("friends(X, Y, 0.5) :- friends(X, A, 1), friends(Y, A, 1)")
 
         self.sherlock_logic.assertz("character(sherlock)")
+        self.sherlock_logic.assertz("mood(sherlock, happy)")
 
     def add_character(self, character):
         name = character.name
@@ -90,11 +91,23 @@ class Logic:
     def get_all_characters(self):
         value =  list(self.sherlock_logic.query("character(X)"))
         return [val['X'] for val in value]
+
+    def get_mood(self, character):
+        qr = list(self.sherlock_logic.query(f"mood({character.name}, X)"))
+        if len(qr) == 0:
+            return None
+        return qr[0]['X']
+
+    def set_mood(self, character, mood):
+        self.sherlock_logic.assertz(f"mood({character.name}, {mood})")
+
 # query_result = list(sherlock_logic.query("defeats(X, Y)"))
 # print(query_result)
 
 if __name__ == "__main__":
     sherlock_logic = Logic()
+    sherlock = Character("sherlock", "Sherlock Holmes", 10, sherlock_logic)
+    print(sherlock_logic.get_mood(sherlock))
     # sherlock = Character("sherlock", "Sherlock Holmes", 10)
     # watson = Character("watson", "", 10)
     # mycroft = Character("mycroft", "", 6)
