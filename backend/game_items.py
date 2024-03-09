@@ -49,7 +49,7 @@ def get_first_room(game_desc, goal, global_characters, sherlock_logic):
     
     room_one_summary = (f"John Watson said to Sherlock, we have a new case. {room_one_npcs['Name']} has the information: {room_one_npcs['Description']}")
     
-    room_one = Room("Baker Street 221B", [], starting_room_description, room_one_summary, room_one_npcs)
+    room_one = Room("Baker Street 221B", starting_room_description, room_one_summary, room_one_npcs)
     sherlock_logic.add_room(room_one)
     return room_one, global_characters
 
@@ -64,7 +64,7 @@ def get_next_room(game_desc, goal, global_characters, sherlock_logic, prev_room)
         sherlock_logic.add_item(char.items[0])
 
     next_description = loads(next_description)
-    next_room = Room(next_description["Name"], [], next_description["Description"], "", current_room_chars)
+    next_room = Room(next_description["Name"], next_description["Description"], "", current_room_chars)
 
     sherlock_logic.add_room(next_room)
 
