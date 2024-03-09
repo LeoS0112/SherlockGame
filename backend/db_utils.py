@@ -11,10 +11,12 @@ def get_user_response():
     get_response = requests.get(endpoint + "user-game-item", )
     print(get_response.json())
 
-def get_list_of_npcs_on_level(level_id, npcs):
-    for npc in npcs:
-        input = {level_id}
-        requests.post(endpoint + "npcs-in-level", input)
+
+
+# def get_list_of_npcs_on_level(level_id, npcs):
+#     for npc in npcs:
+#         input = {level_id, npc_id}
+#         requests.post(endpoint + "npcs-in-level", input)
 
 
 
