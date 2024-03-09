@@ -4,6 +4,7 @@ from json import loads
 
 from openai import OpenAI
 
+
 def get_description(game_desc, last_room, goal="catch Moriarty"):
     prompt = dedent(f"""\
     
@@ -20,8 +21,8 @@ def get_description(game_desc, last_room, goal="catch Moriarty"):
     new_room_description = generate_response_gpt(prompt)
     return new_room_description
 
-def get_npcs(game_desc, current_room_description, previous_characters,   goal="catch Moriarty"):
 
+def get_npcs(game_desc, current_room_description, previous_characters, goal="catch Moriarty"):
     print(previous_characters)
 
     prompt = dedent(f"""\
@@ -44,9 +45,7 @@ def get_npcs(game_desc, current_room_description, previous_characters,   goal="c
     return npcs
 
 
-
-def get_first_room_npcs(game_desc , goal="catch Moriarty"):
-
+def get_first_room_npcs(game_desc, goal="catch Moriarty"):
     prompt = dedent(f"""\
     
     You are designing a game which is {game_desc}
@@ -57,21 +56,33 @@ def get_first_room_npcs(game_desc , goal="catch Moriarty"):
     The format should be: {{ "Name": "Name", "Description": "Description"}}
     
 """)
-    
+
     new_room_description = generate_response_gpt(prompt)
     print(new_room_description)
     return new_room_description
 
+
+def gpt_response_mood(response):
+    prompt = dedent(f"""\
+        Rate this paragraph from 1 to 10, where 1 is the most rude and 10 is the most polite: {response}
+        Example Output: 6
+        """)
+    rating = generate_response_gpt(prompt)
+    print(rating)
+    return int(rating)
+
+
 def gpt_characters(response, global_characters):
     character_names = [character.name for character in global_characters]
     prompt = dedent(f"""\
-        Check which of these characters are mentioned in the response: {character_names}
+        Check which of these characters {character_names} 
+        are mentioned in the response: {response}
         Output only a list of character names that are mentioned in the response in the format: [name1, name2, ...].   
 
         For example, if the response is "Sherlock and Watson are in the room with Moriarty and they are discussing the case", with the characters ["Sherlock", "Watson"],
         the output should be only: ["Sherlock", "Watson"]      
         """)
-    
+
     character_names = generate_response_gpt(prompt)
     l = character_names.strip().strip("[]").replace("\"", " ").split(", ")
     l = [x.strip("'").strip() for x in l]
@@ -80,11 +91,10 @@ def gpt_characters(response, global_characters):
 
 
 if __name__ == "__main__":
-
+    pass
     # Empty the images folder
     # os.system("rm images/*")
 
     # global_characters = [ Character("Sherlock", "The detective", "10"), Character("Watson", "Sherlock's Assistant", "7"), Character("Moriarty", "The Villain", "0")]
     # character_list = gpt_characters("Sherlock and Watson are in the room with Moriarty and they are discussing the case", global_characters)
     # print(character_list)
-

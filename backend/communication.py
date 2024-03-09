@@ -32,9 +32,6 @@ class Communication:
             "What clue do you suspect I might be holding?",
             "Can you make an educated guess about the clue I have in my possession?"
         ]
-
-
-
         self.ask_question(choice(potential_questions))
 
     def answer_question(self, answer):
@@ -56,27 +53,36 @@ class Communication:
         else: 
             print("You lost the fight, Game Over")
 
-    def converse(self, prompt, previous_conversations, goal, mentioned_characters):
+    def converse(self, prompt, previous_conversations, goal, mentioned_characters, politeness_rating):
         
 
         if prompt.upper() == "FIGHT":
             print("You have chosen to fight")
             return self.fight()
 
-    
-            
-        # For frirnd in self.logic.friends:
-        #     if friend in prompt:
-        #         usefullness += 
+        print(mentioned_characters)
+        if politeness_rating > 7:
+            self.logic.set_mood(self.character, "happy")
+        if politeness_rating < 3:
+            self.logic.set_mood(self.character, "angry")
         for char in mentioned_characters:
-            if self.logic.is_friends(self.character.name, char) == 0.5:
+            if char != '':
+                print(char)
+                if self.logic.is_friends(self.character.name, char) == 0.5:
+                    self.character.usefulness += 2
+                elif self.logic.is_friends(self.character.name, char) == 1:
+                    self.character.usefulness += 5
+        mood = self.logic.get_mood(self.character)
+        if mood is not None:
+            if mood == "happy":
                 self.character.usefulness += 2
-            elif self.logic.is_friends(self.character.name, char) == 1:
-                self.character.usefulness += 5
+            elif mood == "angry":
+                self.character.usefulness = 0
+
         prompt = dedent(f"""\
 
     You are a character in a game. Your name is {self.character.name} and you are {self.character.description}  You are in a room with Sherlock Holmes and Watson. 
-    You have a clue to the case in the form of an item {self.character.items[0].name}. You can choose how useful the clue is to Sherlock or to keep it based on {self.character.usefulness+5} with 1 being least useful and 10 being most useful as well as how good the questions Sherlock asked are.
+    You have a clue to the case in the form of an item {self.character.items[0].name}. You can choose how useful the clue is to Sherlock or to keep it based on {self.character.usefulness+5} with 1 being least useful and 10 being most useful as well as how good the questions Sherlock asked are. Your politness is also based on: {self.character.usefulness+5} with 1 being the least polite and 10 being the most polite
     
     Here are any previous conversations: {previous_conversations[-300:]}
 
