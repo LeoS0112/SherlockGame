@@ -3,12 +3,11 @@ from stability import get_image_tile
 from json import loads
 from prolog import Logic
 from textwrap import dedent
+from models import Room, Character, Item
 
-from communication import say_hello, ask_question, useful_question, answer_question, give_item, defeat, converse
+from communication import Communication
 
-def pre_parse_names(names):
-    names = names.replace(" ", "_").replace(",", "").replace("'", "").replace(":", "").replace(";", "").replace("!", "").replace("?", "").replace(".", "").replace("(", "").replace(")", "").replace("-", "").replace(" ", "_")
-    return names.lower()
+
 
 def load_npcs(npcs, global_characters):
     room_chars = []
@@ -16,10 +15,12 @@ def load_npcs(npcs, global_characters):
 
     characters = loads(npcs) 
     
+    global_character_names = [char.name for char in global_characters]
+
     i = 1
     for i in range(1, 4):
         if f"Name{i}" in characters:
-            if characters[f"Name{i}"] not in global_characters:
+            if characters[f"Name{i}"] not in global_character_names:
                 person = Character(characters[f"Name{i}"], characters[f"Description{i}"], characters[f"Usefulness{i}"], characters[f"Weapon{i}"], characters[f"Item{i}"])   
                 room_chars.append(person)
                 global_characters.append(person)
@@ -35,35 +36,7 @@ def load_npcs(npcs, global_characters):
 
     return room_chars, global_characters, new_chars
 
-class Room:
-    def __init__(self, name, dimensions, description, summary, npcs):
-        self.npcs = npcs
-        self.description = description
-        self.name = pre_parse_names(name)
-        self.summary = summary
 
-        tile_path = get_image_tile(f"carpet2.png", "", f"{name}.png")
-
-class Character:
-    def __init__(self, name, description, usefulness, weapon=None, item=None):
-        self.name = pre_parse_names(name)
-        self.description = description
-        self.usefulness = usefulness
-        self.weapon = None
-        self.item = None
-        if weapon is not None:
-            self.weapon = pre_parse_names(weapon[0])
-            self.weapon_strength = weapon[1]
-        if item is not None:
-            self.item = pre_parse_names(item)        
-
-    def __str__(self):
-        return self.description
-
-class Item:
-    def __init__(self, name, score):
-        self.name = name
-        self.score = score
 
 def get_first_room(game_desc, goal, global_characters, sherlock_logic):
     
@@ -88,6 +61,7 @@ def get_next_room(game_desc, goal, global_characters, sherlock_logic, prev_room)
 
     for char in new_chars:
         sherlock_logic.add_character(char)
+        sherlock_logic.add_item(char.items[0])
 
     next_description = loads(next_description)
     next_room = Room(next_description["Name"], [], next_description["Description"], "", current_room_chars)
@@ -111,22 +85,32 @@ if __name__ == "__main__":
     room_one, global_characters = get_first_room(game_desc, global_goal, global_characters, sherlock_logic)
     room_two, global_characters = get_next_room(game_desc, global_goal, global_characters, sherlock_logic, room_one)
 
+    # print character names
+    print([char.name for char in global_characters])
+
+    character = global_characters[-1]
+
+    conversation = Communication(character, sherlock_logic)
+
+    print(character.items[0])
 
 
-    print(global_characters[-1].item)
 
-    char = global_characters[-1]
 
     past_conversations = "None"
 
-    useful_question(char)
+    conversation.useful_question()
 
     for _ in range(10):
 
         response = input()
 
-        question = converse(char, response, past_conversations)
-        print(question)
+        question = conversation.converse(response, past_conversations, character.items[0] )
+
+        if question == True:
+            conversation.give_item()
+            break
+
         info = loads(question)
         print("=====================================")
         print(info)
@@ -138,6 +122,6 @@ if __name__ == "__main__":
             past_conversations += f"Question: {info['response']}\nAnswer: {response}\n"
 
         if info["give_item"]:
-            give_item(char, char.item)
+            conversation.give_item()
             break
 
