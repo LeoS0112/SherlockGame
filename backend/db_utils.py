@@ -11,13 +11,14 @@ def get_user_response():
     get_response = requests.get(endpoint + "user-dialouge", )
     print(get_response.json())
 
+def increment_map_id():
+    requests.post(endpoint + "map")
+
+def get_list_of_npcs_on_level(level_id, npcs: list):
+    for npc in npcs:
+        requests.get(npc.name)
+        input = {level_id, npc_id}
+        requests.post(endpoint + "npcs-in-level", input)
 
 
-# def get_list_of_npcs_on_level(level_id, npcs):
-#     for npc in npcs:
-#         input = {level_id, npc_id}
-#         requests.post(endpoint + "npcs-in-level", input)
-
-
-
-get_user_response()
+increment_map_id()

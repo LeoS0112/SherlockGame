@@ -7,6 +7,7 @@ class NPC(models.Model):
 
 class Map(models.Model):
     level_ID = models.AutoField(primary_key = True)
+    img_name = models.CharField(max_length=100)
 
 class UserDialouge(models.Model):
     user_dialouge_ID = models.AutoField(primary_key = True)
