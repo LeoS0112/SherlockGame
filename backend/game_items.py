@@ -4,6 +4,7 @@ from json import loads
 from prolog import Logic
 from textwrap import dedent
 from models import Room, Character, Item
+import os
 
 from communication import Communication
 
@@ -49,7 +50,7 @@ def get_first_room(game_desc, goal, global_characters, sherlock_logic):
     
     room_one_summary = (f"John Watson said to Sherlock, we have a new case. {room_one_npcs['Name']} has the information: {room_one_npcs['Description']}")
     
-    room_one = Room("Baker Street 221B", [], starting_room_description, room_one_summary, room_one_npcs)
+    room_one = Room("Baker_Street_221B", [], starting_room_description, room_one_summary, room_one_npcs)
     sherlock_logic.add_room(room_one)
     return room_one, global_characters
 
@@ -71,6 +72,10 @@ def get_next_room(game_desc, goal, global_characters, sherlock_logic, prev_room)
     return next_room, global_characters
 
 if __name__ == "__main__":
+
+    # Empty the images folder
+    os.system("rm images/*")
+
     sherlock_logic = Logic()
     global_characters = [ Character("Sherlock", "The detective", "10"), Character("Watson", "Sherlock's Assistant", "7"), Character("Moriarty", "The Villain", "0")]
     for char in global_characters:
@@ -83,6 +88,7 @@ if __name__ == "__main__":
     global_goal = "Catch Moriarty"
 
     room_one, global_characters = get_first_room(game_desc, global_goal, global_characters, sherlock_logic)
+
     room_two, global_characters = get_next_room(game_desc, global_goal, global_characters, sherlock_logic, room_one)
 
     # print character names
@@ -107,9 +113,6 @@ if __name__ == "__main__":
 
         question = conversation.converse(response, past_conversations, character.items[0] )
 
-        if question == True:
-            conversation.give_item()
-            break
 
         info = loads(question)
         print("=====================================")

@@ -4,7 +4,7 @@ from openai import OpenAI
 def generate_response_gpt(prompt, key=None):
 
     if key is None:
-        file = open("secret.txt", "r")
+        file = open("backend/secret.txt", "r")
         key = file.read()
         file.close()
 

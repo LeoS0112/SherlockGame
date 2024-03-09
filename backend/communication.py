@@ -66,14 +66,14 @@ class Communication:
         prompt = dedent(f"""\
 
     You are a character in a game. Your name is {self.character.name} and you are {self.character.description}  You are in a room with Sherlock Holmes and Watson. 
-    You have a clue to the case in the form of an item {self.character.items[0].name}. You can choose either to give the clue to Sherlock or to keep it based on {self.character.usefulness+5} with 1 being least useful and 10 being most useful as well as how good the questions Sherlock asked are.
+    You have a clue to the case in the form of an item {self.character.items[0].name}. You can choose how useful the clue is to Sherlock or to keep it based on {self.character.usefulness+5} with 1 being least useful and 10 being most useful as well as how good the questions Sherlock asked are.
     
     Here are any previous conversations: {previous_conversations[-300:]}
 
 
     The question asked is: {prompt}
     Respond as the character with open dialogue. If they are close to the answer: {goal}, give them a hint towards the clue. If they ask for a hint, give them a signficiant hint. 
-    If they get anywhere near the answer: {goal} then you can give them the item, otherwise report to try again.
+    If {prompt} is near to the answer: {goal} then you can give them the item and set get_item to true. This should be lenient and not too strict.
                         
 
     Return Format: 
