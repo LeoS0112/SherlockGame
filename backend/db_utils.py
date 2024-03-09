@@ -1,6 +1,6 @@
 import requests
 
-endpoint = "https://hidden-fog-37e7f509.zvgz4d.on-acorn.io/"
+endpoint = "https://damp-fog-abf26bfb.zvgz4d.on-acorn.io/"
 
 
 def add_game_items(item_name : str):
@@ -14,11 +14,19 @@ def get_user_response():
 def increment_map_id():
     requests.post(endpoint + "map")
 
-# def get_list_of_npcs_on_level(level_id, npcs: list):
-#     # for npc in npcs:
-#     print(requests.get(endpoint + "npcs").json())
-#     # print(requests.get(endpoint + "npcs-in-level", npc["name"] , headers="npc_ID"))
-#     input = {level_id,}
-#     requests.post(endpoint + "npcs-in-level", input)
+def get_list_of_npcs_on_level(level_id, npcs: list):
+    npc_id = 0
+    input = {"level_ID": str(level_id), "npc_ID": str(npc_id)}
+    get_response = requests.get(endpoint + "npcs").json()
+    for all_npc in get_response:
+        for npc in npcs:
+            if all_npc["name"] ==  npc["name"]:
+                requests.post(endpoint + "npcs-in-level/", {"level_ID": str(level_id), "npc_ID": str(all_npc["npc_ID"])})
+            
 
-# get_list_of_npcs_on_level(0, [{"name": "fred"}, {"name": "a"}])
+    # print(requests.get(endpoint + "npcs-in-level", npc["name"] , headers="npc_ID"))
+    # input = {level_id,}
+    # requests.post(endpoint + "npcs-in-level", input)
+
+
+get_list_of_npcs_on_level(1, [{"name": "fred"}, {"name": "a"}])
