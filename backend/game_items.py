@@ -4,12 +4,13 @@ from json import loads
 from prolog import Logic
 from textwrap import dedent
 
+from communication import say_hello, ask_question, useful_question, answer_question, give_item, defeat, converse
+
 def pre_parse_names(names):
     names = names.replace(" ", "_").replace(",", "").replace("'", "").replace(":", "").replace(";", "").replace("!", "").replace("?", "").replace(".", "").replace("(", "").replace(")", "").replace("-", "").replace(" ", "_")
     return names.lower()
 
 def load_npcs(npcs, global_characters):
-    print(npcs)
     room_chars = []
     new_chars = []
 
@@ -19,7 +20,7 @@ def load_npcs(npcs, global_characters):
     for i in range(1, 4):
         if f"Name{i}" in characters:
             if characters[f"Name{i}"] not in global_characters:
-                person = Character(characters[f"Name{i}"], characters[f"Description{i}"], characters[f"Usefulness{i}"], characters[f"Weapon{i}"])    
+                person = Character(characters[f"Name{i}"], characters[f"Description{i}"], characters[f"Usefulness{i}"], characters[f"Weapon{i}"], characters[f"Item{i}"])   
                 room_chars.append(person)
                 global_characters.append(person)
                 new_chars.append(person)
@@ -44,15 +45,17 @@ class Room:
         tile_path = get_image_tile(f"carpet2.png", "", f"{name}.png")
 
 class Character:
-    def __init__(self, name, description, usefulness, weapon=None):
+    def __init__(self, name, description, usefulness, weapon=None, item=None):
         self.name = pre_parse_names(name)
         self.description = description
         self.usefulness = usefulness
         self.weapon = None
+        self.item = None
         if weapon is not None:
             self.weapon = pre_parse_names(weapon[0])
             self.weapon_strength = weapon[1]
-        
+        if item is not None:
+            self.item = pre_parse_names(item)        
 
     def __str__(self):
         return self.description
@@ -103,4 +106,31 @@ if __name__ == "__main__":
     room_one, global_characters = get_first_room(game_desc, global_goal, global_characters, sherlock_logic)
     room_two, global_characters = get_next_room(game_desc, global_goal, global_characters, sherlock_logic, room_one)
 
-    
+
+    print(global_characters[-1].item)
+
+    char = global_characters[-1]
+
+    past_conversations = "None"
+
+    useful_question(char)
+
+    for _ in range(10):
+
+        response = input()
+
+        question = converse(char, response, past_conversations)
+        print(question)
+        info = loads(question)
+        print("=====================================")
+        print(info)
+
+
+        if past_conversations == "None":
+            past_conversations = f"Question: {info['response']}\nAnswer: {response}\n"
+        else:
+            past_conversations += f"Question: {info['response']}\nAnswer: {response}\n"
+
+        if info["give_item"]:
+            give_item(char, char.item)
+            break
