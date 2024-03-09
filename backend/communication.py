@@ -60,7 +60,6 @@ class Communication:
             print("You have chosen to fight")
             return self.fight()
 
-        print(mentioned_characters)
         if politeness_rating > 7:
             self.logic.set_mood(self.character, "happy")
         if politeness_rating < 3:
@@ -99,7 +98,7 @@ class Communication:
             "response": ResponseInfo,
             "close_to_answer": true/false,
             "give_item": true/false,
-            "next_hint": HintInfo
+            "next_hint": "HintInfo"
 
         }}
         """)

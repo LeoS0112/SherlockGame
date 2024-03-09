@@ -2,6 +2,7 @@ from random import randint
 from stability import get_image_tile, stability_use
 import os
 import sys
+from db_utils import get_list_of_npcs_on_level, add_NPC, increment_map_id
 
 # Import from backend.db_utils
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
@@ -21,14 +22,20 @@ class Room:
         self.summary = summary
 
 
-        count = 0
+
+        count = 1
         for file in os.listdir("backend/media/carpets"):
             if file.endswith(".png"):
                 count += 1
-    
+                increment_map_id()
+
+        self.level = count
+        get_list_of_npcs_on_level(count, self.npcs)
+
 
         out_path = f"backend/media/carpets/{count}.png"
         tile_path = get_image_tile(f"carpet2.png", "", out_path)
+
 
 class Character:
     def __init__(self, name, description, usefulness, sherlock_logic, weapon=None, item=None):
@@ -48,6 +55,7 @@ class Character:
             item_name = pre_parse_names(item)
             self.items = [Item(item_name, randint(1, 10), self.logic)] 
 
+        add_NPC(self.name)
 
         # If character already in directory, then use the image
         out_path = f"backend/media/npcs/{self.name}.png"
