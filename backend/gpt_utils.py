@@ -31,9 +31,9 @@ def get_npcs(game_desc, current_room_description, previous_characters,   goal="c
     If relevant, you can include the previous characters:
         {previous_characters}
     Or output new characters Sherlock will meet in the next room.
-    Each person has a weapon this can be None.
+    Each person has a weapon. The weapon has a strength which is a number between 1 and 10. 1 being weak and 10 being strong.
     Usefulness is a number between 1 and 10, 1 being not useful and 10 being very useful.
-    The format should be: {{ "Name1": Name1, "Description1": Description1, "Weapon1":PhysicalWeapon1, "Usefulness1":Usefulness1 , "Name2": Name2, "Description2": Description2, "Weapon2": PhysicalWeapon2, "Usefulness2":Usefulness2 ...}}
+    The format should be: {{ "Name1": Name1, "Description1": Description1, "Weapon1":[PhysicalWeapon1, WeaponStrength1], "Usefulness1":Usefulness1 , "Name2": Name2, "Description2": Description2, "Weapon2": [PhysicalWeapon2, WeaponStrength2], "Usefulness2":Usefulness2 ...}}
 """)
     npcs = generate_response_gpt(prompt)
 
