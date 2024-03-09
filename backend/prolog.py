@@ -73,9 +73,8 @@ class Logic:
     def sherlock_defeats(self, character):
         return len(list(self.sherlock_logic.query(f"defeats(sherlock, {character.name})"))) == 1
 
-    def add_friends(self, character1, character2):
-        name1 = character1
-        name2 = character2
+    def add_friends(self, name1, name2):
+
         self.sherlock_logic.retractall("friends(X, Y, 0.5) :- friends(X, A, 1), friends(Y, A, 1)")
         self.sherlock_logic.assertz(f"friends({name1}, {name2}, 1)")
         self.sherlock_logic.assertz(f"friends({name2}, {name1}, 1)")
