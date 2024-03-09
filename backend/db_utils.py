@@ -11,9 +11,12 @@ def get_user_response():
     get_response = requests.get(endpoint + "user-dialouge", )
     print(get_response.json())
 
-def add_npc_response(npc_id, level_id, response):
-    input = {"npc_response": response}
-    requests.post(endpoint + "npc-dialouge/", input)
+def add_npc_response(npc_name, level_id, response):
+    get_response = requests.get(endpoint + "npcs").json()
+    for all_npc in get_response:
+        if all_npc["name"] == npc_name:
+            id = all_npc["npc_ID"]
+    requests.post(endpoint + "npc-dialouge/", {"npc_ID": str(id), "level_ID": str(level_id), "npc_response": response})
     # print(get_response.json())
 
 def add_NPC(name : str):
@@ -31,6 +34,3 @@ def get_list_of_npcs_on_level(level_id, npcs: list):
         for npc in npcs:
             if all_npc["name"] ==  npc["name"]:
                 requests.post(endpoint + "npcs-in-level/", {"level_ID": str(level_id), "npc_ID": str(all_npc["npc_ID"])})
-
-add_NPC("John")
-# add_npc_response("Hello my name is jeff how are you image.")
