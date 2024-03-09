@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var officeView: UIView!
     @IBOutlet weak var watsonView: UIImageView!
-    
+    @IBOutlet weak var clientView: UIImageView!
     
     // game views and environment
     
@@ -36,8 +36,7 @@ class ViewController: UIViewController {
     
     // Sherlock NPC details
     let imageViewSize = CGSize(width: 80, height: 80) // Define the size as a property for easier adjustments
-    
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         createSherlockNpc()
@@ -127,6 +126,14 @@ class ViewController: UIViewController {
                 moveSherlockToWatson()
                 return
             }
+            
+            if (tapLocation.y >= clientView.frame.origin.y + triggerDistance) {
+                // move to client
+                moveSherlockToClient()
+                return
+            }
+
+            
         case .gameScene:
             break
         }
@@ -167,9 +174,21 @@ class ViewController: UIViewController {
         }
     }
     
+    func moveSherlockToClient() {
+        
+        guard let holderView = sherlockView.superview else {
+            return
+        }
+                
+        UIView.animate(withDuration: 0.8) {
+            self.sherlockView.center = CGPoint(x: self.watsonView.frame.origin.x, y: self.clientView.frame.origin.y + self.imageViewSize.height / 2)
+        } completion: {_ in
+            self.triggerClientInteraction()
+        }
+    }
+    
     
     func moveSherlockToLobbyDoor() {
-        
         guard let holderView = sherlockView.superview else {
             return
         }
@@ -189,6 +208,12 @@ class ViewController: UIViewController {
     @objc func triggerWatsonInteraction() {
         print("Watson triggered!")
     }
+
+    @objc func triggerClientInteraction() {
+        print("Client triggered!")
+    }
+
+    
     
 }
 
