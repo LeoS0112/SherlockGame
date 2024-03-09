@@ -15,18 +15,25 @@ def increment_map_id():
     requests.post(endpoint + "map")
 
 def get_list_of_npcs_on_level(level_id, npcs: list):
+    print("=====================================")
     npc_id = 0
-    input = {"level_ID": str(level_id), "npc_ID": str(npc_id)}
+    print(npcs)
+    print(type(npcs))
+    print(type(npcs[0]))
     get_response = requests.get(endpoint + "npcs").json()
     for all_npc in get_response:
         for npc in npcs:
-            if all_npc["name"] ==  npc["name"]:
+
+            if isinstance(npc, dict):
+                name = npc["Name"]
+            else:
+                name = npc.name
+            
+
+            if all_npc["name"] ==  name:
+                print({"level_ID": str(level_id), "npc_ID": str(all_npc["npc_ID"])})
                 requests.post(endpoint + "npcs-in-level/", {"level_ID": str(level_id), "npc_ID": str(all_npc["npc_ID"])})
             
 
-    # print(requests.get(endpoint + "npcs-in-level", npc["name"] , headers="npc_ID"))
-    # input = {level_id,}
-    # requests.post(endpoint + "npcs-in-level", input)
 
-
-get_list_of_npcs_on_level(1, [{"name": "fred"}, {"name": "a"}])
+# get_list_of_npcs_on_level(1, [{"name": "fred"}, {"name": "a"}])

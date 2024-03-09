@@ -19,6 +19,7 @@ def load_npcs(npcs, global_characters, sherlock_logic):
     
     global_character_names = [char.name for char in global_characters]
 
+
     i = 1
     for i in range(1, 4):
         if f"Name{i}" in characters:
@@ -52,7 +53,7 @@ def get_first_room(game_desc, goal, global_characters, sherlock_logic):
     
     room_one_summary = (f"John Watson said to Sherlock, we have a new case. {room_one_npcs['Name']} has the information: {room_one_npcs['Description']}")
     
-    room_one = Room("Baker Street 221B", starting_room_description, room_one_summary, room_one_npcs)
+    room_one = Room("Baker Street 221B", starting_room_description, room_one_summary, [room_one_npcs])
 
     sherlock_logic.add_room(room_one)
     return room_one, global_characters
