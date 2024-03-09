@@ -7,8 +7,6 @@ from PIL import Image
 from stability_sdk import client
 import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 
-from rembg import remove
-
 # Need to usee stability for
 # Creating tile maps for rooms
 # Character designs
