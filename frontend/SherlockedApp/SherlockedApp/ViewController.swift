@@ -14,20 +14,21 @@ class ViewController: UIViewController {
         case officeScene
         case gameScene
     }
-    
-    
+        
     let sherlockView = UIImageView()
+    let triggerDistance: CGFloat = 30
+    var currentScene: Scene = .lobbyScene
     
     // Lobby views and environment
     
     @IBOutlet weak var lobbyView: UIView!
     @IBOutlet weak var lobbyDoorView: UIView!
-    let doorTriggerDistance: CGFloat = 30
-    var currentScene: Scene = .lobbyScene
     
     // Office views and environment
     
     @IBOutlet weak var officeView: UIView!
+    @IBOutlet weak var watsonView: UIImageView!
+    
     
     // game views and environment
     
@@ -56,7 +57,6 @@ class ViewController: UIViewController {
     func moveToScene(sceneLocation: Scene) {
         
         if sceneLocation != currentScene {
-            
             guard let holderView = sherlockView.superview else {
                 return
             }
@@ -86,12 +86,20 @@ class ViewController: UIViewController {
         let holderView = room
         holderView.addSubview(sherlockView)
         
+        let initialLocation = CGPoint(x: self.imageViewSize.width/2, y: holderView.frame.height/2)
+        sherlockView.center = initialLocation
+                
+        let finalLocation = CGPoint(x: holderView.frame.width/2, y: holderView.frame.height/2)
+        
+        print(currentScene)
+        print(holderView.frame)
+        print(holderView.bounds)
+        
         UIView.animate(withDuration: 0.5) {
-            self.sherlockView.frame = CGRect(origin: CGPoint(x: (holderView.bounds.width - self.imageViewSize.width) / 2, y: (holderView.bounds.height - self.imageViewSize.height) / 2), size: self.imageViewSize)
+            self.sherlockView.center = finalLocation
         }
         
         let twoFingerTapGesture = UITapGestureRecognizer(target: self, action: #selector(moveCharacter(_:)))
-        //        twoFingerTapGesture.numberOfTouchesRequired = 2 // Set to require two fingers for the tap
         holderView.addGestureRecognizer(twoFingerTapGesture)
     }
     
@@ -108,13 +116,17 @@ class ViewController: UIViewController {
         switch currentScene {
             
         case .lobbyScene:
-            if (tapLocation.x >= holderView.bounds.width - doorTriggerDistance) {
+            if (tapLocation.x >= holderView.bounds.width - triggerDistance) {
                 // Move the imageView to the door and trigger an action
-                moveImageViewToDoor()
+                moveSherlockToLobbyDoor()
                 return
             }
         case .officeScene:
-            break
+            if (tapLocation.y <= watsonView.frame.size.height + triggerDistance) {
+                // move to watson
+                moveSherlockToWatson()
+                return
+            }
         case .gameScene:
             break
         }
@@ -129,18 +141,34 @@ class ViewController: UIViewController {
         
         var adjustedLocation = tapLocation
         
-        adjustedLocation.x = max(tapLocation.x, imageViewSize.width / 2)
-        adjustedLocation.x = min(tapLocation.x, holderView.bounds.width - imageViewSize.width / 2)
+        let maxMargin = imageViewSize.width / 2
         
-        adjustedLocation.y = max(tapLocation.y, imageViewSize.height / 2)
-        adjustedLocation.y = min(tapLocation.y, holderView.bounds.height - imageViewSize.height / 2)
+        adjustedLocation.x = max(tapLocation.x, maxMargin)
+        adjustedLocation.x = min(tapLocation.x, holderView.bounds.width - maxMargin)
+        
+        adjustedLocation.y = max(tapLocation.y, maxMargin)
+        adjustedLocation.y = min(tapLocation.y, holderView.bounds.height - maxMargin)
         
         UIView.animate(withDuration: 0.5) {
             self.sherlockView.center = adjustedLocation
         }
     }
     
-    func moveImageViewToDoor() {
+    func moveSherlockToWatson() {
+        
+        guard let holderView = sherlockView.superview else {
+            return
+        }
+                
+        UIView.animate(withDuration: 0.8) {
+            self.sherlockView.center = CGPoint(x: self.watsonView.frame.origin.x, y: self.watsonView.frame.origin.y + self.imageViewSize.height / 2)
+        } completion: {_ in
+            self.triggerWatsonInteraction()
+        }
+    }
+    
+    
+    func moveSherlockToLobbyDoor() {
         
         guard let holderView = sherlockView.superview else {
             return
@@ -158,6 +186,9 @@ class ViewController: UIViewController {
         moveToScene(sceneLocation: .officeScene)
     }
     
+    @objc func triggerWatsonInteraction() {
+        print("Watson triggered!")
+    }
     
 }
 
