@@ -97,3 +97,4 @@ if __name__ == "__main__":
     print(query_result)
     query_result = list(sherlock_logic.logic.query("completes_game()"))
     print(query_result)
+

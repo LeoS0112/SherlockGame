@@ -103,4 +103,4 @@ if __name__ == "__main__":
     room_one, global_characters = get_first_room(game_desc, global_goal, global_characters, sherlock_logic)
     room_two, global_characters = get_next_room(game_desc, global_goal, global_characters, sherlock_logic, room_one)
 
-    
+  
