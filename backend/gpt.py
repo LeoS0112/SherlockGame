@@ -13,7 +13,7 @@ def generate_response_gpt(prompt, key=None):
     context = ""
 
     stream = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": context + prompt}],
         stream=True,
     )

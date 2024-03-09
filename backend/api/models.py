@@ -24,3 +24,4 @@ class NPCsInLevel(models.Model):
 class UserGameItem(models.Model):
     item_ID = models.IntegerField(primary_key = True)
     item_name = models.CharField(max_length=100)
+

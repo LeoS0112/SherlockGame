@@ -79,4 +79,3 @@ class UserGameItemRetrieveUpdateDestory(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserGameItem.objects.all()
     serializer_class = UserGameItemSerializer
     lookup_field = "pk"
-
