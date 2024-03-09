@@ -8,7 +8,7 @@ def pre_parse_names(names):
 
 
 class Room:
-    def __init__(self, name, dimensions, description, summary, npcs):
+    def __init__(self, name, description, summary, npcs):
         self.npcs = npcs
         self.description = description
         self.name = pre_parse_names(name)
