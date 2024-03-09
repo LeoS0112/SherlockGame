@@ -77,7 +77,11 @@ def get_next_room(game_desc, goal, global_characters, sherlock_logic, prev_room)
 if __name__ == "__main__":
 
     # Empty the images folder
-    os.system("rm media/*")
+    os.system("rm backend/media/npcs/*.png")
+    os.system("rm backend/media/carpets/*")
+    os.system("rm backend/media/*")
+
+    # backend\media\npcs
 
     sherlock_logic = Logic()
     global_characters = [ Character("Sherlock", "The detective", "10", sherlock_logic), Character("Watson", "Sherlock's Assistant", "7", sherlock_logic), Character("Moriarty", "The Villain", "0", sherlock_logic)]

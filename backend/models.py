@@ -20,7 +20,14 @@ class Room:
         self.name = pre_parse_names(name)
         self.summary = summary
 
-        out_path = f"backend/media/carpets/{self.name}.png"
+
+        count = 0
+        for file in os.listdir("backend/media/carpets"):
+            if file.endswith(".png"):
+                count += 1
+    
+
+        out_path = f"backend/media/carpets/{count}.png"
         tile_path = get_image_tile(f"carpet2.png", "", out_path)
 
 class Character:
@@ -40,6 +47,7 @@ class Character:
         if item is not None:
             item_name = pre_parse_names(item)
             self.items = [Item(item_name, randint(1, 10), self.logic)] 
+
 
         # If character already in directory, then use the image
         out_path = f"backend/media/npcs/{self.name}.png"
