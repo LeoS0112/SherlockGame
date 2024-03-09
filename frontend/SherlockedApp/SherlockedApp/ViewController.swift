@@ -65,7 +65,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         watsonView.layer.cornerRadius = watsonView.frame.size.height/2
         watsonView.clipsToBounds = true
         
-        showConversation(text: "")
+        showConversation(text: "This is your lobby, take a selfie or walk to your office.")
     }
     
     func startGame() {
@@ -83,6 +83,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             self?.lobbyCarpetImageView.image = image
             self?.plantView.alpha = 1.0
+            self?.clientView.alpha = 1.0
+            self?.watsonView.alpha = 1.0
         })
         
         // Office
@@ -151,6 +153,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         guard let holderView = sherlockView.superview else {
             return
         }
+        
+        showConversation(text: "")
         
         let tapLocation = gesture.location(in: holderView)
         
@@ -245,11 +249,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @objc func triggerWatsonInteraction() {
         print("Watson triggered!")
-        showConversation(text: "Elementary, my dear watson..")
+        showConversation(text: "Watson: We have a visitor")
     }
     
     @objc func triggerClientInteraction() {
         print("Client triggered!")
+        
+        showConversation(text: "I am inspector Lestrade and I have a task. Directs Sherlock and Watson's attention to a case in Canary Wharf. A wealthy businessman has been found murdered in his office, with no signs of forced entry or struggle. The case baffles the local authorities, and Lestrade believes Sherlock's keen eye for detail is needed to crack the mystery.\nGo to the crime scene...")
     }
     
     func showConversation(text: String) {
