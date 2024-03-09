@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     enum Scene {
         case lobbyScene
@@ -30,6 +30,8 @@ class ViewController: UIViewController {
     
     // Lobby views and environment
     
+    @IBOutlet weak var plantView: UIImageView!
+    @IBOutlet weak var lobbyCarpetImageView: UIImageView!
     @IBOutlet weak var lobbyView: UIView!
     @IBOutlet weak var lobbyDoorView: UIView!
     
@@ -38,6 +40,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var officeView: UIView!
     @IBOutlet weak var watsonView: UIImageView!
     @IBOutlet weak var clientView: UIImageView!
+    @IBOutlet weak var officeCarpetImage: UIImageView!
     
     // game views and environment
     
@@ -67,6 +70,29 @@ class ViewController: UIViewController {
     
     func startGame() {
         moveToScene(sceneLocation: .lobbyScene)
+        loadAssets()
+    }
+    
+    func loadAssets() {
+        
+        // Lobby
+        ContentManager.fetchAsset(assetURL: ContentManager.lobbyCarpetAssetUrl, completion: { [weak self] image, error in
+            if let error = error {
+                print("Error fetching image: \(error.localizedDescription)")
+                return
+            }
+            self?.lobbyCarpetImageView.image = image
+            self?.plantView.alpha = 1.0
+        })
+        
+        // Office
+        ContentManager.fetchAsset(assetURL: ContentManager.officeCarpetAssetUrl, completion: { [weak self] image, error in
+            if let error = error {
+                print("Error fetching image: \(error.localizedDescription)")
+                return
+            }
+            self?.officeCarpetImage.image = image
+        })
     }
     
     func moveToScene(sceneLocation: Scene) {
@@ -249,5 +275,38 @@ class ViewController: UIViewController {
         conversationLabel.text?.append(message[index])
         currentStringIndex += 1
     }
+    
+    
+    
+    // Front camera image capture
+    
+    @IBAction func cameraButtonPressed(_ sender: Any) {
+        captureImage()
+    }
+    
+    func captureImage() {
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+            print("Camera is not available.")
+            return
+        }
+        
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.cameraDevice = .front // Directly set to front camera
+        imagePicker.delegate = self
+        
+        present(imagePicker, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let capturedImage = info[.originalImage] as? UIImage {
+            
+            
+            
+        }
+        
+        picker.dismiss(animated: true)
+    }
+    
 }
 
