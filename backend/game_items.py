@@ -5,6 +5,7 @@ from prolog import Logic
 from textwrap import dedent
 from models import Room, Character
 import os
+from db_utils import add_npc_response, get_user_response, get_npc
 
 from communication import Communication
 
@@ -73,7 +74,69 @@ def get_next_room(game_desc, goal, global_characters, sherlock_logic, prev_room)
 
     sherlock_logic.add_room(next_room)
 
-    return next_room, global_characters
+    return next_room, global_characters, current_room_chars
+
+def first_conversation(character, sherlock_logic, level):
+
+    conversation = Communication(character, sherlock_logic)
+
+    past_conversations = ""
+    question = conversation.useful_question()
+    old_user_input = add_npc_response(character.name, level, question)
+    
+    response = get_user_response(old_user_input)
+
+    print(response)
+    print("=====================================")
+
+    
+    return question, conversation, past_conversations, response
+
+
+def continue_conversation(prompt, conversation, past_conversations, level, old_response, character):
+
+        character_names_in_response = gpt_characters(old_response, global_characters)
+        politeness_rating = gpt_response_mood(old_response)
+
+
+        question = conversation.converse(old_response['user_input'], past_conversations, character.items[0], character_names_in_response, politeness_rating)
+
+        info = loads(question)
+        print(info)
+
+
+        if info["give_item"]:
+            conversation.give_item()
+            return False
+
+        new_prompt = info["response"] + info["next_hint"]
+
+        old_user_input = add_npc_response(character.name, level, new_prompt)
+
+        response = get_user_response(old_user_input)
+
+        past_conversations += f"Question: {prompt}\nAnswer: {response}\n"
+
+        
+
+        return new_prompt, conversation, past_conversations, response
+
+
+def create_conversation(global_characters, sherlock_logic, character, room):
+    # print character names
+
+    prompt, conversation, past_conversations, response = first_conversation(character, sherlock_logic, room.level)
+
+    i = 0
+    while i < 9:
+        prompt, conversation, past_conversations, response = continue_conversation(prompt, conversation, past_conversations, room.level, response, character)
+        i += 1
+
+    return response
+
+
+
+
 
 if __name__ == "__main__":
 
@@ -95,50 +158,34 @@ if __name__ == "__main__":
                 "Baker Street initiates a captivating adventure, testing your intellect in a quest for justice")
     global_goal = "Catch Moriarty"
 
+    
+
     room_one, global_characters = get_first_room(game_desc, global_goal, global_characters, sherlock_logic)
 
-    room_two, global_characters = get_next_room(game_desc, global_goal, global_characters, sherlock_logic, room_one)
-
-    # print character names
-    print([char.name for char in global_characters])
-
-    character = global_characters[-1]
-
-    conversation = Communication(character, sherlock_logic)
-
-    print(character.items[0])
+    main_pitch = f"I am {global_characters[-1].name} and I have the task {global_characters[-1].description}"
+    
+    old_p = add_npc_response(global_characters[-1].name, room_one.level, main_pitch)
 
 
+    room_two, global_characters, current_room_chars = get_next_room(game_desc, global_goal, global_characters, sherlock_logic, room_one)
+
+    # Get a request to create a conversation
+    
+    while True:
+
+        first_message = get_user_response(old_p)
+        npc_id = first_message['npc_ID']
+        npc_name = get_npc(npc_id)
+
+        response = ""
+
+        for char in current_room_chars:
+            if char.name == npc_name:
+                response = create_conversation(global_characters, sherlock_logic, char, room_one)
+
+        old_p = response
 
 
-    past_conversations = "None"
-
-    conversation.useful_question()
-
-    for _ in range(10):
 
 
-
-        response = input()
-        character_names_in_response = gpt_characters(response, global_characters)
-        politeness_rating = gpt_response_mood(response)
-        print(politeness_rating)
-        print(response)
-
-        question = conversation.converse(response, past_conversations, character.items[0], character_names_in_response, politeness_rating)
-
-
-        info = loads(question)
-        print("=====================================")
-        print(info)
-
-
-        if past_conversations == "None":
-            past_conversations = f"Question: {info['response']}\nAnswer: {response}\n"
-        else:
-            past_conversations += f"Question: {info['response']}\nAnswer: {response}\n"
-
-        if info["give_item"]:
-            conversation.give_item()
-            break
-
+    # create_conversation(global_characters, sherlock_logic, global_characters[-1], room_one)

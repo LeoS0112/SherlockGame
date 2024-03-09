@@ -68,7 +68,6 @@ def gpt_response_mood(response):
         Example Output: 6
         """)
     rating = generate_response_gpt(prompt)
-    print(rating)
     return int(rating)
 
 
