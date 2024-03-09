@@ -57,6 +57,11 @@ class Character:
     def __str__(self):
         return self.description
 
+class Item:
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
 def get_first_room(game_desc, goal, global_characters, sherlock_logic):
     
     starting_room_description = ("In 'Sherlock Holmes: Shadows of Intrigue,' embody the detective in Victorian London. Solve "

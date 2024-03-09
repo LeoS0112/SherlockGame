@@ -72,6 +72,9 @@ class Logic:
     def has_item(self, character, item):
         self.logic.assertz(f"has_item({character}, {item})")
 
+    def completed_game(self):
+        return len(list(sherlock_logic.logic.query("completes_game()"))) == 1
+
 # query_result = list(sherlock_logic.query("defeats(X, Y)"))
 # print(query_result)
 
@@ -80,7 +83,7 @@ if __name__ == "__main__":
     sherlock_logic.add_character(Character("sherlock", "Sherlock Holmes", 10))
 
     # Give Sherlock some items
-    sherlock_logic.new_item(Item("pipe", 50))
+    sherlock_logic.new_item(Item("pipe", 10))
     # sherlock_logic.new_item(Item("magnifying_glass", 5))
     # sherlock_logic.new_item(Item("notebook", 5))
     # sherlock_logic.new_item(Item("pen", 5))
@@ -95,6 +98,5 @@ if __name__ == "__main__":
 
     query_result = list(sherlock_logic.logic.query("sherlock_total(X)"))
     print(query_result)
-    query_result = list(sherlock_logic.logic.query("completes_game()"))
-    print(query_result)
+    print(sherlock_logic.completed_game())
 
