@@ -143,6 +143,7 @@ def stability_use_image(path, text, out):
 
 def get_image_tile(path, content, out):
 
+
     stability_api = client.StabilityInference(
         key="sk-NHyorRj8N5c2xvbOeLdsXHuYO7RWoG7oXufqhmX2g00o7pB6",
         verbose=True,
