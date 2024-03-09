@@ -13,6 +13,15 @@ class ContentManager {
     static let lobbyCarpetAssetUrl = URL(string: "https://sherlock-game.s3.eu-west-2.amazonaws.com/carpets/0")
     static let officeCarpetAssetUrl = URL(string: "https://sherlock-game.s3.eu-west-2.amazonaws.com/carpets/1")
     static let gameCarpetAssetUrl = URL(string: "https://sherlock-game.s3.eu-west-2.amazonaws.com/carpets/2")
+    static let userImageAssetUrl = URL(string: "https://sherlock-game.s3.eu-west-2.amazonaws.com/carpets")
+        
+    static func uploadUserAsset(image: UIImage, completion: @escaping (UIImage?, Error?) -> Void) {
+        
+        
+        
+        
+    }
+    
     
     static func fetchAsset(assetURL: URL?, completion: @escaping (UIImage?, Error?) -> Void) {
         guard let url = assetURL else {
