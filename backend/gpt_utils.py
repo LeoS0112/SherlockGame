@@ -51,9 +51,11 @@ def get_first_room_npcs(game_desc , goal="catch Moriarty"):
         {goal}
         
     Output a character that the Sherlock and Watson will meet in the first room, who will provide them with a new case. Describe the case they provide which is in Canary Wharf
-    The format should be: {{ "Name": Name, "Description": Description}}
+    The format should be: {{ "Name": "Name", "Description": "Description"}}
 """)
+    
     new_room_description = generate_response_gpt(prompt)
+    print(new_room_description)
     return new_room_description
 
 
