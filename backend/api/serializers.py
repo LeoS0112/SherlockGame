@@ -9,8 +9,8 @@ class NPCSerializer(serializers.ModelSerializer):
 class MapSerializer(serializers.ModelSerializer):
     class Meta:
         model = Map
-        fields = ["level_ID", "img_name"]
-
+        fields = ["level_ID"]
+        
 class UserDialougeSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserDialouge
