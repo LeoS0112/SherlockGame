@@ -14,10 +14,19 @@ class ViewController: UIViewController {
         case officeScene
         case gameScene
     }
-        
+    
     let sherlockView = UIImageView()
     let triggerDistance: CGFloat = 30
     var currentScene: Scene = .lobbyScene
+    
+    // Conversation
+    
+    var currentStringIndex: Int = 0
+    var textTimer: Timer?
+    var message: String = ""
+    
+    @IBOutlet weak var conversationLabel: UILabel!
+    @IBOutlet weak var dialogView: UIView!
     
     // Lobby views and environment
     
@@ -36,17 +45,24 @@ class ViewController: UIViewController {
     
     // Sherlock NPC details
     let imageViewSize = CGSize(width: 80, height: 80) // Define the size as a property for easier adjustments
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        createSherlockNpc()
+        setupNPCs()
         startGame()
     }
     
-    func createSherlockNpc() {
+    func setupNPCs() {
         sherlockView.frame = CGRect(x: 0, y: 0, width: imageViewSize.width, height: imageViewSize.height)
+        sherlockView.layer.cornerRadius = imageViewSize.height/2
         sherlockView.image = UIImage(named: "Sherlock_default")
-        sherlockView.backgroundColor = .clear
+        sherlockView.clipsToBounds = true
+        sherlockView.backgroundColor = .systemTeal
+        
+        watsonView.layer.cornerRadius = watsonView.frame.size.height/2
+        watsonView.clipsToBounds = true
+        
+        showConversation(text: "")
     }
     
     func startGame() {
@@ -82,17 +98,19 @@ class ViewController: UIViewController {
     
     func resetNPCInRoom(room: UIView) {
         
+        for room in [lobbyView,officeView,gameMapView] {
+            room?.alpha = 0.3
+        }
+        
+        room.alpha = 1.0
+        
         let holderView = room
         holderView.addSubview(sherlockView)
         
         let initialLocation = CGPoint(x: self.imageViewSize.width/2, y: holderView.frame.height/2)
         sherlockView.center = initialLocation
-                
-        let finalLocation = CGPoint(x: holderView.frame.width/2, y: holderView.frame.height/2)
         
-        print(currentScene)
-        print(holderView.frame)
-        print(holderView.bounds)
+        let finalLocation = CGPoint(x: holderView.frame.width/2, y: holderView.frame.height/2)
         
         UIView.animate(withDuration: 0.5) {
             self.sherlockView.center = finalLocation
@@ -132,7 +150,7 @@ class ViewController: UIViewController {
                 moveSherlockToClient()
                 return
             }
-
+            
             
         case .gameScene:
             break
@@ -145,6 +163,8 @@ class ViewController: UIViewController {
         guard let holderView = sherlockView.superview else {
             return
         }
+        
+        showConversation(text: "")
         
         var adjustedLocation = tapLocation
         
@@ -163,10 +183,6 @@ class ViewController: UIViewController {
     
     func moveSherlockToWatson() {
         
-        guard let holderView = sherlockView.superview else {
-            return
-        }
-                
         UIView.animate(withDuration: 0.8) {
             self.sherlockView.center = CGPoint(x: self.watsonView.frame.origin.x, y: self.watsonView.frame.origin.y + self.imageViewSize.height / 2)
         } completion: {_ in
@@ -176,10 +192,6 @@ class ViewController: UIViewController {
     
     func moveSherlockToClient() {
         
-        guard let holderView = sherlockView.superview else {
-            return
-        }
-                
         UIView.animate(withDuration: 0.8) {
             self.sherlockView.center = CGPoint(x: self.watsonView.frame.origin.x, y: self.clientView.frame.origin.y + self.imageViewSize.height / 2)
         } completion: {_ in
@@ -195,7 +207,7 @@ class ViewController: UIViewController {
         
         UIView.animate(withDuration: 0.8) {
             self.sherlockView.center = CGPoint(x: holderView.bounds.width - self.imageViewSize.width / 2, y: self.sherlockView.center.y)
-        } completion: {_ in 
+        } completion: {_ in
             self.triggerLobbyDoorAction()
         }
     }
@@ -207,13 +219,35 @@ class ViewController: UIViewController {
     
     @objc func triggerWatsonInteraction() {
         print("Watson triggered!")
+        showConversation(text: "Elementary, my dear watson..")
     }
-
+    
     @objc func triggerClientInteraction() {
         print("Client triggered!")
     }
-
     
+    func showConversation(text: String) {
+        
+        message = text
+        
+        currentStringIndex = 0
+        conversationLabel.text = ""
+        textTimer?.invalidate()
+        textTimer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(updateText), userInfo: nil, repeats: true)
+    }
     
+    @objc func updateText() {
+        
+        dialogView.alpha = message.isEmpty ? 0.0 : 0.8
+        
+        guard currentStringIndex < message.count else {
+            textTimer?.invalidate()
+            return
+        }
+        
+        let index = message.index(message.startIndex, offsetBy: currentStringIndex)
+        conversationLabel.text?.append(message[index])
+        currentStringIndex += 1
+    }
 }
 
