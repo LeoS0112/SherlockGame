@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+
 class NPC(models.Model):
     npc_ID = models.AutoField(primary_key = True)
     name = models.CharField(max_length=100)
@@ -27,4 +28,3 @@ class NPCsInLevel(models.Model):
 class UserGameItem(models.Model):
     item_ID = models.AutoField(primary_key = True)
     item_name = models.CharField(max_length=100)
-

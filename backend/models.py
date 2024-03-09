@@ -1,6 +1,12 @@
 from random import randint
 from stability import get_image_tile, stability_use
 import os
+import sys
+
+# Import from backend.db_utils
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from db_utils import add_game_items
+# from backend.db_utils import add_game_items
 
 def pre_parse_names(names):
     names = names.replace(" ", "_").replace(",", "").replace("'", "").replace(":", "").replace(";", "").replace("!", "").replace("?", "").replace(".", "").replace("(", "").replace(")", "").replace("-", "").replace(" ", "_")
@@ -14,7 +20,15 @@ class Room:
         self.name = pre_parse_names(name)
         self.summary = summary
 
-        tile_path = get_image_tile(f"carpet2.png", "", f"images/{self.name}.png")
+
+        count = 0
+        for file in os.listdir("backend/media/carpets"):
+            if file.endswith(".png"):
+                count += 1
+    
+
+        out_path = f"backend/media/carpets/{count}.png"
+        tile_path = get_image_tile(f"carpet2.png", "", out_path)
 
 class Character:
     def __init__(self, name, description, usefulness, sherlock_logic, weapon=None, item=None):
@@ -32,10 +46,11 @@ class Character:
             self.weapon_strength = weapon[1]
         if item is not None:
             item_name = pre_parse_names(item)
-            self.items = [Item(item_name, randint(1, 10))] 
+            self.items = [Item(item_name, randint(1, 10), self.logic)] 
+
 
         # If character already in directory, then use the image
-        out_path = f"images/{self.name}.png"
+        out_path = f"backend/media/npcs/{self.name}.png"
         try_path = f"cached_characters/{self.name}.png"
 
         if os.path.exists(out_path):
@@ -66,9 +81,14 @@ class Character:
 
 
 class Item:
-    def __init__(self, name, score):
+    def __init__(self, name, score, sherlock_logic):
         self.name = name
         self.score = score
+        self.logic = sherlock_logic
+
+        sherlock_logic.add_item(self)
+        add_game_items(name)
+
 
     def __str__(self):
         return(f"{self.name} with a score of {self.score}")
