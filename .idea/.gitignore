@@ -6,3 +6,17 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+# Pycache
+__pycache__/
+backedn/__pycache__/
+*.pyc
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyCharm files
+.idea/
+
+Vscode files
+.vscode/
