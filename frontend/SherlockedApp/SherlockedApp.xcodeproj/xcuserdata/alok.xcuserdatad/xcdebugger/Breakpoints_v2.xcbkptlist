@@ -3,4 +3,180 @@
    uuid = "824AAAB6-4DA3-401C-ACDB-90D2A39AC35E"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F835DEE4-7BDC-4407-B72C-86DB13EB5379"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SherlockedApp/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "talkToWitnessNPC(completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F835DEE4-7BDC-4407-B72C-86DB13EB5379 - 33b114bf449d0231"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;SherlockedApp.NPCDialogue&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #3 (__C.UIAlertAction) -&gt; () in SherlockedApp.ViewController.talkToWitnessNPC(completion: (Swift.Optional&lt;SherlockedApp.NPCDialogue&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "SherlockedApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alok/iOS/AI%20hackathon%20London/SherlockGame/frontend/SherlockedApp/SherlockedApp/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150"
+                  offsetFromSymbolStart = "128">
+               </Location>
+               <Location
+                  uuid = "F835DEE4-7BDC-4407-B72C-86DB13EB5379 - bbaa20fb016a4b94"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #3 (__C.UIAlertAction) -&gt; () in SherlockedApp.ViewController.talkToWitnessNPC(completion: (Swift.Optional&lt;SherlockedApp.NPCDialogue&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "SherlockedApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alok/iOS/AI%20hackathon%20London/SherlockGame/frontend/SherlockedApp/SherlockedApp/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150"
+                  offsetFromSymbolStart = "136">
+               </Location>
+               <Location
+                  uuid = "F835DEE4-7BDC-4407-B72C-86DB13EB5379 - bbaa20fb016a4877"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #3 (__C.UIAlertAction) -&gt; () in SherlockedApp.ViewController.talkToWitnessNPC(completion: (Swift.Optional&lt;SherlockedApp.NPCDialogue&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "SherlockedApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alok/iOS/AI%20hackathon%20London/SherlockGame/frontend/SherlockedApp/SherlockedApp/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "151"
+                  endingLineNumber = "151"
+                  offsetFromSymbolStart = "136">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "33AEC168-4CC7-4E16-B97A-970A9163F59A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SherlockedApp/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "talkToWitnessNPC(completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "33AEC168-4CC7-4E16-B97A-970A9163F59A - 33b114bf449d0294"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;SherlockedApp.NPCDialogue&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #3 (__C.UIAlertAction) -&gt; () in SherlockedApp.ViewController.talkToWitnessNPC(completion: (Swift.Optional&lt;SherlockedApp.NPCDialogue&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "SherlockedApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alok/iOS/AI%20hackathon%20London/SherlockGame/frontend/SherlockedApp/SherlockedApp/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "145"
+                  endingLineNumber = "145"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  uuid = "33AEC168-4CC7-4E16-B97A-970A9163F59A - bbaa20fb016a4b31"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #3 (__C.UIAlertAction) -&gt; () in SherlockedApp.ViewController.talkToWitnessNPC(completion: (Swift.Optional&lt;SherlockedApp.NPCDialogue&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "SherlockedApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alok/iOS/AI%20hackathon%20London/SherlockGame/frontend/SherlockedApp/SherlockedApp/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "145"
+                  endingLineNumber = "145"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  uuid = "33AEC168-4CC7-4E16-B97A-970A9163F59A - bbaa20fb016a4b10"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #3 (__C.UIAlertAction) -&gt; () in SherlockedApp.ViewController.talkToWitnessNPC(completion: (Swift.Optional&lt;SherlockedApp.NPCDialogue&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "SherlockedApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alok/iOS/AI%20hackathon%20London/SherlockGame/frontend/SherlockedApp/SherlockedApp/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "146"
+                  endingLineNumber = "146"
+                  offsetFromSymbolStart = "96">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5AC248B5-7269-4699-B7CB-87CAB360F05F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SherlockedApp/Network/ContentManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "sendConversation(url:npcId:message:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5AC248B5-7269-4699-B7CB-87CAB360F05F - 5efc990e0ef8f3d8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in static SherlockedApp.ContentManager.sendConversation(url: Swift.Optional&lt;Foundation.URL&gt;, npcId: Swift.Int, message: Swift.String, completion: (Swift.Optional&lt;SherlockedApp.NPCDialogue&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "SherlockedApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alok/iOS/AI%20hackathon%20London/SherlockGame/frontend/SherlockedApp/SherlockedApp/Network/ContentManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "143"
+                  endingLineNumber = "143"
+                  offsetFromSymbolStart = "1848">
+               </Location>
+               <Location
+                  uuid = "5AC248B5-7269-4699-B7CB-87CAB360F05F - 5cdb0601a183e671"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in static SherlockedApp.ContentManager.sendConversation(url: Swift.Optional&lt;Foundation.URL&gt;, npcId: Swift.Int, message: Swift.String, completion: (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "SherlockedApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alok/iOS/AI%20hackathon%20London/SherlockGame/frontend/SherlockedApp/SherlockedApp/Network/ContentManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "145"
+                  endingLineNumber = "145"
+                  offsetFromSymbolStart = "1964">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

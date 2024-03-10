@@ -24,6 +24,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var currentStringIndex: Int = 0
     var textTimer: Timer?
     var message: String = ""
+    var dialogs: [NPCDialogue]?
+    var npcs: [NPCModel]?
     
     @IBOutlet weak var conversationLabel: UILabel!
     @IBOutlet weak var dialogView: UIView!
@@ -47,6 +49,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var gameMapView: UIView!
     @IBOutlet weak var gameCarpet: UIImageView!
+    @IBOutlet weak var npcView: UIImageView!
     
     // Sherlock NPC details
     let imageViewSize = CGSize(width: 80, height: 80) // Define the size as a property for easier adjustments
@@ -67,7 +70,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         watsonView.layer.cornerRadius = watsonView.frame.size.height/2
         watsonView.clipsToBounds = true
         
-        showConversation(text: "This is your lobby, take a selfie or walk to your office.")
+        showConversation(text: "You have a new case, walk to your office.")
     }
     
     func startGame() {
@@ -87,6 +90,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self?.plantView.alpha = 1.0
             self?.clientView.alpha = 1.0
             self?.watsonView.alpha = 1.0
+            self?.npcView.alpha = 1.0
         })
         
         // Office
@@ -107,6 +111,73 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             self?.gameCarpet.image = image
         })
+        
+        ContentManager.getNPCs(url: ContentManager.getNPCsUrl) { [weak self] npcs, error in
+            if let error = error {
+                print("Error fetching npcs: \(error.localizedDescription)")
+                return
+            }
+            self?.npcs = npcs
+        }
+    }
+    
+    func talkToWitnessNPC(completion: @escaping (NPCDialogue?, Error?) -> Void) {
+        guard let witnessNPC = npcs?.max(by: { $0.npcId < $1.npcId }) else {
+            completion(nil, NSError(domain: "DataError", code: 404, userInfo: nil))
+            return
+        }
+        
+        let alertController = UIAlertController(title: "Send message to: \(witnessNPC.npcName)", message: "Please enter your text below", preferredStyle: .alert)
+        alertController.addTextField { textField in
+            
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            
+            if let textField = alertController.textFields?.first, let textInput = textField.text {
+                
+                print("Text entered: \(textInput)")
+                
+                self.showConversation(text: "Sherlock: \(textInput)")
+                
+                ContentManager.sendConversation(url: ContentManager.sendDialogsUrl, npcId: witnessNPC.npcId, message: textInput) { dialog, error in
+                    
+                    if let error = error {
+                        print("Error fetching response: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    completion(nil,nil)
+                }
+                
+            }
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        
+        // Present the alert
+        present(alertController, animated: true)
+        
+    }
+    
+    func loadConversationWithClientNPC(completion: @escaping (NPCDialogue?, Error?) -> Void) {
+        
+        ContentManager.getConversations(url: ContentManager.getDialogsUrl) { [weak self] dialogs, error in
+            if let error = error {
+                print("Error fetching image: \(error.localizedDescription)")
+                return
+            }
+            
+            self?.dialogs = dialogs
+            
+            if let latestDialogue = dialogs?.max(by: { $0.npcDialogueID < $1.npcDialogueID }) {
+                completion(latestDialogue, nil)
+            } else {
+                completion(nil, NSError(domain: "DataError", code: 404, userInfo: nil))
+            }
+        }
     }
     
     func moveToScene(sceneLocation: Scene) {
@@ -194,17 +265,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             
             if (tapLocation.x >= holderView.bounds.width - triggerDistance) {
-                // move to client
+                // move to office door
                 moveSherlockToOfficeDoor()
                 return
             }
             
-        case .gameScene: break
-//            if (tapLocation.x >= holderView.bounds.width - triggerDistance) {
-//                // move to client
-//                moveSherlockToOfficeDoor()
-//                return
-//            }
+        case .gameScene:
+            if (tapLocation.y <= watsonView.frame.size.height + triggerDistance) {
+                // move to NPC 3
+                moveSherlockToWitnessNPC()
+                return
+            }
+            
         }
         moveImageViewWithinBounds(tapLocation: tapLocation)
     }
@@ -250,6 +322,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
+    func moveSherlockToWitnessNPC() {
+        
+        UIView.animate(withDuration: 0.8) {
+            self.sherlockView.center = CGPoint(x: self.npcView.frame.origin.x, y: self.npcView.frame.origin.y + self.imageViewSize.height / 2)
+        } completion: {_ in
+            self.triggerWitnessInteraction()
+        }
+    }
+    
     
     func moveSherlockToLobbyDoor() {
         guard let holderView = sherlockView.superview else {
@@ -288,13 +369,33 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @objc func triggerWatsonInteraction() {
         print("Watson triggered!")
-        showConversation(text: "Watson: We have a visitor")
+        showConversation(text: "Dr. Watson: We have a visitor")
     }
     
     @objc func triggerClientInteraction() {
         print("Client triggered!")
         
-        showConversation(text: "I am inspector Lestrade and I have a task. Directs Sherlock and Watson's attention to a case in Canary Wharf. A wealthy businessman has been found murdered in his office, with no signs of forced entry or struggle. The case baffles the local authorities, and Lestrade believes Sherlock's keen eye for detail is needed to crack the mystery.\nGo to the crime scene...")
+        loadConversationWithClientNPC(completion: { [weak self] dialog, error in
+            if let response = dialog?.npcResponse {
+                
+                self?.showConversation(text: response)
+                
+            }
+        })
+    }
+    
+    @objc func triggerWitnessInteraction() {
+        
+        
+        talkToWitnessNPC { dialog, error in
+            
+            
+            // fetch response
+            DispatchQueue.main.asyncAfter(deadline: .now() + 12) { // 5 seconds delay
+                // Call your function here
+                self.triggerClientInteraction()
+            }
+        }
     }
     
     func showConversation(text: String) {
@@ -320,8 +421,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         conversationLabel.text?.append(message[index])
         currentStringIndex += 1
     }
-    
-    
     
     // Front camera image capture
     
