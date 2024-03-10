@@ -41,10 +41,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var watsonView: UIImageView!
     @IBOutlet weak var clientView: UIImageView!
     @IBOutlet weak var officeCarpetImage: UIImageView!
+    @IBOutlet weak var officeDoorView: UIView!
     
     // game views and environment
     
     @IBOutlet weak var gameMapView: UIView!
+    @IBOutlet weak var gameCarpet: UIImageView!
     
     // Sherlock NPC details
     let imageViewSize = CGSize(width: 80, height: 80) // Define the size as a property for easier adjustments
@@ -95,6 +97,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             self?.officeCarpetImage.image = image
         })
+        
+        // GameScene
+        
+        ContentManager.fetchAsset(assetURL: ContentManager.gameCarpetAssetUrl, completion: { [weak self] image, error in
+            if let error = error {
+                print("Error fetching image: \(error.localizedDescription)")
+                return
+            }
+            self?.gameCarpet.image = image
+        })
     }
     
     func moveToScene(sceneLocation: Scene) {
@@ -144,8 +156,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.sherlockView.center = finalLocation
         }
         
-        let twoFingerTapGesture = UITapGestureRecognizer(target: self, action: #selector(moveCharacter(_:)))
-        holderView.addGestureRecognizer(twoFingerTapGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(moveCharacter(_:)))
+        holderView.addGestureRecognizer(tapGesture)
     }
     
     @objc func moveCharacter(_ gesture: UITapGestureRecognizer) {
@@ -181,9 +193,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 return
             }
             
+            if (tapLocation.x >= holderView.bounds.width - triggerDistance) {
+                // move to client
+                moveSherlockToOfficeDoor()
+                return
+            }
             
-        case .gameScene:
-            break
+        case .gameScene: break
+//            if (tapLocation.x >= holderView.bounds.width - triggerDistance) {
+//                // move to client
+//                moveSherlockToOfficeDoor()
+//                return
+//            }
         }
         moveImageViewWithinBounds(tapLocation: tapLocation)
     }
@@ -242,10 +263,28 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
+    func moveSherlockToOfficeDoor() {
+        guard let holderView = sherlockView.superview else {
+            return
+        }
+        
+        UIView.animate(withDuration: 0.8) {
+            self.sherlockView.center = CGPoint(x: holderView.bounds.width - self.imageViewSize.width / 2, y: self.sherlockView.center.y)
+        } completion: {_ in
+            self.triggerOfficeDoorAction()
+        }
+    }
+    
     @objc func triggerLobbyDoorAction() {
         print("Lobby Door triggered!")
         moveToScene(sceneLocation: .officeScene)
     }
+    
+    @objc func triggerOfficeDoorAction() {
+        print("Lobby Door triggered!")
+        moveToScene(sceneLocation: .gameScene)
+    }
+    
     
     @objc func triggerWatsonInteraction() {
         print("Watson triggered!")
