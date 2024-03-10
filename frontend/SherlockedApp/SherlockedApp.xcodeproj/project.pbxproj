@@ -13,6 +13,8 @@
 		5C448F272B9C8CC50020D51D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C448F252B9C8CC50020D51D /* Main.storyboard */; };
 		5C448F292B9C8CC60020D51D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C448F282B9C8CC60020D51D /* Assets.xcassets */; };
 		5C448F2C2B9C8CC60020D51D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C448F2A2B9C8CC60020D51D /* LaunchScreen.storyboard */; };
+		5C48B4F82B9DA71F00F8B09D /* NPCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C48B4F72B9DA71F00F8B09D /* NPCModel.swift */; };
+		5C48B4FA2B9DABC900F8B09D /* NPCDialogue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C48B4F92B9DABC900F8B09D /* NPCDialogue.swift */; };
 		5CB91CAD2B9CE30400770EB2 /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB91CAC2B9CE30400770EB2 /* ContentManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +27,8 @@
 		5C448F282B9C8CC60020D51D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C448F2B2B9C8CC60020D51D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5C448F2D2B9C8CC60020D51D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C48B4F72B9DA71F00F8B09D /* NPCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPCModel.swift; sourceTree = "<group>"; };
+		5C48B4F92B9DABC900F8B09D /* NPCDialogue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPCDialogue.swift; sourceTree = "<group>"; };
 		5CB91CAC2B9CE30400770EB2 /* ContentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,6 +78,8 @@
 			isa = PBXGroup;
 			children = (
 				5CB91CAC2B9CE30400770EB2 /* ContentManager.swift */,
+				5C48B4F72B9DA71F00F8B09D /* NPCModel.swift */,
+				5C48B4F92B9DABC900F8B09D /* NPCDialogue.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -152,7 +158,9 @@
 				5C448F242B9C8CC50020D51D /* ViewController.swift in Sources */,
 				5CB91CAD2B9CE30400770EB2 /* ContentManager.swift in Sources */,
 				5C448F202B9C8CC50020D51D /* AppDelegate.swift in Sources */,
+				5C48B4FA2B9DABC900F8B09D /* NPCDialogue.swift in Sources */,
 				5C448F222B9C8CC50020D51D /* SceneDelegate.swift in Sources */,
+				5C48B4F82B9DA71F00F8B09D /* NPCModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -129,11 +129,27 @@
                                         <rect key="frame" x="50" y="217.5" width="372" height="389"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Watson" translatesAutoresizingMaskIntoConstraints="NO" id="Vfq-zf-JWo" userLabel="NPCView">
+                                        <rect key="frame" x="196" y="32" width="80" height="80"/>
+                                        <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="Ig6-I4-11e"/>
+                                            <constraint firstAttribute="width" secondItem="Vfq-zf-JWo" secondAttribute="height" multiplier="1:1" id="uxl-9Q-KPR"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
+                                                <integer key="value" value="40"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.61647796629999996" green="0.29193082539999998" blue="0.1281354854" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
+                                    <constraint firstItem="Vfq-zf-JWo" firstAttribute="centerX" secondItem="d2U-7v-ndT" secondAttribute="centerX" id="68q-hB-736"/>
                                     <constraint firstItem="GqV-3r-wKF" firstAttribute="centerX" secondItem="d2U-7v-ndT" secondAttribute="centerX" id="Ett-l9-IVo"/>
+                                    <constraint firstItem="Vfq-zf-JWo" firstAttribute="width" secondItem="Vfq-zf-JWo" secondAttribute="height" multiplier="1:1" id="KiQ-Tr-4pe"/>
                                     <constraint firstItem="GqV-3r-wKF" firstAttribute="leading" secondItem="d2U-7v-ndT" secondAttribute="leading" constant="50" id="Lgq-kU-66p"/>
+                                    <constraint firstItem="Vfq-zf-JWo" firstAttribute="top" secondItem="d2U-7v-ndT" secondAttribute="top" constant="32" id="c6z-st-Mf5"/>
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x8r-LZ-H8Z" userLabel="DialogView">
@@ -190,6 +206,7 @@
                         <outlet property="lobbyCarpetImageView" destination="LJQ-ie-3cg" id="o9G-4P-oMe"/>
                         <outlet property="lobbyDoorView" destination="YJ3-bO-uod" id="63n-KG-O9q"/>
                         <outlet property="lobbyView" destination="TA8-nK-Nxt" id="N86-3s-QzG"/>
+                        <outlet property="npcView" destination="Vfq-zf-JWo" id="sSm-bN-ha2"/>
                         <outlet property="officeCarpetImage" destination="1rg-Ye-raO" id="5LK-rW-e55"/>
                         <outlet property="officeDoorView" destination="38i-6n-eiJ" id="gDy-Ln-bqU"/>
                         <outlet property="officeView" destination="3gv-Kx-WxL" id="6RP-65-49f"/>
@@ -207,6 +224,9 @@
         <image name="camera-removebg" width="180" height="180"/>
         <image name="npc_01" width="512" height="512"/>
         <image name="plant_clear" width="250" height="250"/>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
