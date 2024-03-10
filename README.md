@@ -13,7 +13,6 @@ To set up the backend you will need to run the requremnets.txt in the backend fo
 ```bash
   pip install -r requirements.txt
   pip install openai pyswip
-  
 ```
 
 You will need to also install:
