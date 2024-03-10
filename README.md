@@ -11,7 +11,7 @@ The Game UX is built on UIKit, with each scene built using a separate room UI. T
 
 ## Setup
 This will be all ran on bother **Swift** and **Python**
-To set up the backend you will need to run the requremnets.txt in the backend folder directory:
+To set up the backend you will need to run the [requirements.txt](/backend/requirements.txt) in the backend folder directory:
 
 ```bash
   pip install -r requirements.txt
@@ -26,7 +26,7 @@ scoop install acorn
 
 ## Running Project
 
-To run the project you will need to run the the game_items.py file and in another terminal run: 
+To run the project you will need to run the the [game_items.py](/backend/game_items.py) file and in another terminal run: 
 
 ```bash
 acorn login
@@ -37,7 +37,7 @@ Create an account then run:
 acorn dev .
 ```
 
-you will recieve a link when it start and copy this link into the file image_uploader.py in the backend folder: 
+you will recieve a link when it start and copy this link into the file [image_uploader.py](/backend/image_uploader.py) in the backend folder: 
 
 ```
 endpoint = "your link that was generated"
