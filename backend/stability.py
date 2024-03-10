@@ -101,12 +101,8 @@ def stability_use(out, content):
         for artifact in resp.artifacts:
             if artifact.type == generation.ARTIFACT_IMAGE:
                 img = Image.open(io.BytesIO(artifact.binary))
-                # img.show()
-                print(out)
 
                 remove_background(img, out)
-
-                # img.save(out)
 
     return out
 
@@ -187,7 +183,43 @@ def get_image_tile(path, content, out):
                 # remove_background("out.png")
     return out
 
+def stability_use_image_gen_char(path, text, out):
 
+    stability_api = client.StabilityInference(
+        key="sk-NHyorRj8N5c2xvbOeLdsXHuYO7RWoG7oXufqhmX2g00o7pB6",
+        verbose=True,
+        engine="stable-diffusion-xl-1024-v1-0",)
+
+
+    context = "Pixel art game. Design is 19th century style. More pixelated"
+
+
+    img = Image.open(path)
+
+    answers = stability_api.generate(
+        prompt = [generation.Prompt(text=context+text, parameters=generation.PromptParameters(weight=1)),
+                  generation.Prompt(text="blurry, bad, ", parameters=generation.PromptParameters(weight=-1))
+                  ],
+
+        init_image = img,
+        steps = 40,
+        cfg_scale = 5,
+        samples = 1,
+        width = 1024,
+        height = 1024,
+    )
+
+    # Print out what seed has been used
+
+    for resp in answers:
+        for artifact in resp.artifacts:
+            if artifact.type == generation.ARTIFACT_IMAGE:
+                img = Image.open(io.BytesIO(artifact.binary))
+                print(img)
+                img.save("out.png")
+                print(out)
+                remove_background(img, "out2.png")
+    return out
 
 
 if __name__ == "__main__":
