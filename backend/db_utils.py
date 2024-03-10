@@ -1,7 +1,7 @@
 import requests
 from time import sleep
 
-endpoint = "https://damp-fog-abf26bfb.zvgz4d.on-acorn.io/"
+endpoint = "https://divine-pond-3b355c38.zvgz4d.on-acorn.io/"
 
 
 def add_game_items(item_name : str):
