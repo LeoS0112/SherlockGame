@@ -46,4 +46,9 @@ endpoint = "your link that was generated"
 
 **Server:** Acorn, AWS
 
+## Authors
 
+- [@ramstar3000](https://www.github.com/ramstar3000)
+- [@fred-huang122](https://www.github.com/fred-huang122)
+- [@LeoS0112](https://www.github.com/LeoS0112)
+- [@aloksahay](https://www.github.com/aloksahay)
