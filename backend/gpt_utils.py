@@ -99,3 +99,4 @@ if __name__ == "__main__":
     # character_list = gpt_characters("Sherlock and Watson are in the room with Moriarty and they are discussing the case", global_characters)
     # print(character_list)
     # print(character_list)
+

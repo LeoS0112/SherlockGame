@@ -34,3 +34,5 @@ def get_list_of_npcs_on_level(level_id, npcs: list):
         for npc in npcs:
             if all_npc["name"] ==  npc["name"]:
                 requests.post(endpoint + "npcs-in-level/", {"level_ID": str(level_id), "npc_ID": str(all_npc["npc_ID"])})
+
+print(requests.get(endpoint + "npcs").json())
