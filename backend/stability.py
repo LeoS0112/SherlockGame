@@ -76,7 +76,7 @@ def remove_background(img, out_path):
 def stability_use(out, content):
 
     stability_api = client.StabilityInference(
-        key="sk-NHyorRj8N5c2xvbOeLdsXHuYO7RWoG7oXufqhmX2g00o7pB6",
+        key="",
         verbose=True,
         engine="stable-diffusion-xl-1024-v1-0",)
     
@@ -111,7 +111,7 @@ def stability_use(out, content):
 def stability_use_image(path, text, out):
 
     stability_api = client.StabilityInference(
-        key="sk-NHyorRj8N5c2xvbOeLdsXHuYO7RWoG7oXufqhmX2g00o7pB6",
+        key="",
         verbose=True,
         engine="stable-diffusion-xl-1024-v1-0",)
     
@@ -151,7 +151,7 @@ def get_image_tile(path, content, out):
 
 
     stability_api = client.StabilityInference(
-        key="sk-NHyorRj8N5c2xvbOeLdsXHuYO7RWoG7oXufqhmX2g00o7pB6",
+        key="",
         verbose=True,
         engine="stable-diffusion-xl-1024-v1-0",)
     
@@ -186,7 +186,7 @@ def get_image_tile(path, content, out):
 def stability_use_image_gen_char(path, text, out):
 
     stability_api = client.StabilityInference(
-        key="sk-NHyorRj8N5c2xvbOeLdsXHuYO7RWoG7oXufqhmX2g00o7pB6",
+        key="",
         verbose=True,
         engine="stable-diffusion-xl-1024-v1-0",)
 
