@@ -8,8 +8,8 @@ import os
 import boto3
 
 client = boto3.client('s3',
-                        aws_access_key_id="AKIA3W6Z2DQZTO6EYSNH",
-                        aws_secret_access_key="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",
+                        aws_access_key_id="",
+                        aws_secret_access_key="",
                          region_name='eu-north-1')
 
 end = time.perf_counter()
