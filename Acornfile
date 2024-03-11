@@ -31,7 +31,7 @@ containers: web: {
 	dependsOn: ["dbinit"]
 	consumes: ["db"]
 
-	if args.dev {dirs: "/app": "./mysite"}
+	if args.dev {dirs: "/app": "./app"}
 
 	env: {
 		MARIADB_USER:          "@{service.db.secrets.admin.username}"

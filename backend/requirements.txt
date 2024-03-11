@@ -1,3 +1,4 @@
+# db REST api
 django>=4.2, <5.0.0
 djangorestframework
 pyyaml
@@ -5,3 +6,10 @@ requests
 django-cors-headers
 environs
 mysqlclient
+boto3
+
+# game
+openai
+stability-sdk
+pyswip
+rembg
