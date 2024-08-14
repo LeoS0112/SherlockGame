@@ -1,6 +1,8 @@
 
 # Elementary: The game
 
+The submission video: https://youtu.be/Iz299y24MXk
+
 **Description:** 
 
 We have built a Sherlock-inspired puzzle game, which is unique in the fact you will have a different experience every time. Using GPT 3.5 and GPT-4 to revolutionize game development by integrating Prolog, a logic programming language, ensuring structure in the simulated world. We used Stability to generate characters based off the name and description of the character. We used prompt engineering to dynamically produce character images, based off the user’s interactions with them. We also made background carpets and the main character avatar. s as referred to in Google's Research into Alpha Geomrtry. We used prolog to prevent hallucinations because Prolog is logical programming language that can provide structure to LLM live user image integration personalizes the experience. With lightweight design and revolutionary concept, we will have a high market impact. We believe we will have a significant industry game-changer with a focus on generative games.
